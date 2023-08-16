@@ -1,2 +1,1 @@
-import { Main } from './main/';
-export { Main };
+export * from './main/Main';
