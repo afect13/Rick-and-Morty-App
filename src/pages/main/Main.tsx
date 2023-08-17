@@ -1,3 +1,7 @@
 export const Main = () => {
-  return <div className="">Main</div>;
+  return (
+    <main className="w-full min-h-screen font-poppins">
+      <section className="max-w-screen-lg mx-auto"></section>
+    </main>
+  );
 };
