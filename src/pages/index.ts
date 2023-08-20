@@ -5,3 +5,4 @@ export * from './search/Search';
 export * from './signin/Signin';
 export * from './signup/Signup';
 export * from './notFound/NotFound';
+export * from './character/Character';
