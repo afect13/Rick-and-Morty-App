@@ -1,11 +1,9 @@
 import { CharacterCard, PageLayout } from '../../components';
 
-export const Main = () => {
+export const Search = () => {
   // Мапить и выводить карточки
   return (
-    <PageLayout title={'Main'}>
-      <CharacterCard />
-      <CharacterCard />
+    <PageLayout title={'Search Result'}>
       <CharacterCard />
       <CharacterCard />
     </PageLayout>
