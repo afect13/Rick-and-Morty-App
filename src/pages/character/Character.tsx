@@ -1,3 +1,9 @@
+import { CharacterProfile, PageLayout } from '../../components';
+
 export const Character = () => {
-  return <div>Character</div>;
+  return (
+    <PageLayout title={'Character'}>
+      <CharacterProfile />
+    </PageLayout>
+  );
 };

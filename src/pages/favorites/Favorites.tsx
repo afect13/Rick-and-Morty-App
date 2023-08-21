@@ -10,7 +10,7 @@ export const Favorites = () => {
         <ListItem isFavorites={true} />
       </ul>
       <div className="flex w-full justify-center">
-        <Button type={'button'} name={'Remove all'} bgColor="bg-red-600" withBorder={false} />
+        <Button type={'button'} name={'Remove all'} bgColor={'bg-red-600'} withBorder={false} />
       </div>
     </PageLayout>
   );

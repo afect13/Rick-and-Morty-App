@@ -1,3 +1,10 @@
+import { CharacterCard, PageLayout } from '../../components';
+
 export const Search = () => {
-  return <div>Search</div>;
+  return (
+    <PageLayout title={'Search Result'}>
+      <CharacterCard />
+      <CharacterCard />
+    </PageLayout>
+  );
 };
