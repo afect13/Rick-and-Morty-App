@@ -1,7 +1,12 @@
+import { CharacterCard, PageLayout } from '../../components';
+
 export const Main = () => {
   return (
-    <div className="flex flex-col  items-center gap-8 pt-8">
-      <div></div>
-    </div>
+    <PageLayout title={'Main'}>
+      <CharacterCard />
+      <CharacterCard />
+      <CharacterCard />
+      <CharacterCard />
+    </PageLayout>
   );
 };
