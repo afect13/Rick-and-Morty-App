@@ -1,5 +1,5 @@
 import { ReactComponent as Search } from '../../assets/svg/search.svg';
-import { Button } from '../button/Button';
+import { Button } from '../../components';
 
 export const SearchBar = () => {
   return (
@@ -19,6 +19,7 @@ export const SearchBar = () => {
           required
         />
         <Button
+          type="submit"
           withBorder={true}
           name={'Search'}
           absoluteParms={'absolute right-0 bottom-0 '}
