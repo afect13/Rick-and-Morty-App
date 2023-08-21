@@ -6,7 +6,7 @@ import { Button, SearchBar } from '../../components';
 
 export const Menu = () => {
   // TODO: Убрать isAuth  когда будут приходить данные
-  const isAuth = true;
+  const isAuth = false;
   return (
     <div className="flex justify-between items-center h-10">
       <div className="flex gap-4 px-4 items-center ">

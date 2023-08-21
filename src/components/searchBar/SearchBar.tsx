@@ -14,7 +14,7 @@ export const SearchBar = () => {
         <input
           type="search"
           id="search"
-          className="block w-full p-2 pl-10 text-sm text-zinc-900 border border-zinc-300 focus:outline-none focus:ring focus:ring-zinc-400  bg-zinc-50   "
+          className="block w-full p-2 pl-10 text-sm text-zinc-900 border border-zinc-300 focus:outline-none focus:ring focus:ring-zinc-400  bg-zinc-50"
           placeholder="Search Сharacter..."
           required
         />
@@ -22,7 +22,7 @@ export const SearchBar = () => {
           type="submit"
           withBorder={true}
           name={'Search'}
-          absoluteParms={'absolute right-0 bottom-0 '}
+          absoluteParms={'absolute right-0 bottom-0'}
           bgColor={'bg-zinc-900'}
         />
       </div>
