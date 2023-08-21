@@ -10,7 +10,7 @@ interface Props {
 }
 
 export const Button = ({ name, bgColor, withBorder, children, absoluteParms, type }: Props) => {
-  const background = bgColor ? bgColor : 'bg-inherit ';
+  const background = bgColor ? bgColor + ` hover:contrast-200` : 'bg-inherit ';
   const border = withBorder ? 'border border-zinc-200 hover:border-zinc-300' : 'border-none';
   const absolute = absoluteParms ? absoluteParms : 'static ';
   return (
