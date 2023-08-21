@@ -1,7 +1,7 @@
 import { Button, ListItem, PageLayout } from '../../components';
 
 export const History = () => {
-  // TODO: Брать ссылки и мапать список
+  // TODO: Мапить список, сделать проверку есть ли вообще что показать
   return (
     <PageLayout title={'History'}>
       <ul className="w-full">

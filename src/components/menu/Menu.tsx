@@ -5,7 +5,7 @@ import { ReactComponent as Sun } from '../../assets/svg/sun.svg';
 import { Button, SearchBar } from '../../components';
 
 export const Menu = () => {
-  // TODO: Убрать когда будет приходить через пропсы
+  // TODO: Убрать isAuth  когда будут приходить данные
   const isAuth = true;
   return (
     <div className="flex justify-between items-center h-10">
@@ -20,7 +20,7 @@ export const Menu = () => {
       <div className="border-zinc-100/20 border-l">
         <div className="flex gap-4 px-4 items-center ">
           <Button type={'button'} withBorder={false}>
-            <Sun fill="#e4e4e7" stroke="#e4e4e7"></Sun>
+            <Sun fill="#e4e4e7"></Sun>
           </Button>
 
           {isAuth ? (
