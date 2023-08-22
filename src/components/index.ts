@@ -6,3 +6,4 @@ export * from './pageLayout/PageLayout';
 export * from './listItem/ListItem';
 export * from './characterProfile/CharacterProfile';
 export * from './form/Form';
+export * from './errorFallback/ErrorFallback';
