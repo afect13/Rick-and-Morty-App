@@ -15,7 +15,7 @@ const NotFound = lazy(() => import('./pages/').then(({ NotFound }) => ({ default
 
 const router = createBrowserRouter([
   {
-    path: '/',
+    path: '',
     element: (
       <Suspense fallback={<Loading />}>
         <App />
