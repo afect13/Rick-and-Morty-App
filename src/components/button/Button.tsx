@@ -1,26 +1,42 @@
 import classNames from 'classnames';
-import { ReactNode } from 'react';
+import { ReactNode, useContext } from 'react';
+
+import { ThemeContext } from '../../context';
 
 interface Props {
   name?: string;
-  bgColor?: string;
+  bgColor?: string | undefined;
   withBorder: boolean;
   children?: ReactNode;
   absoluteParms?: string;
   widthParms?: string;
   type: 'button' | 'submit';
+  invertColor?: boolean;
+  onClick?: React.MouseEventHandler<HTMLButtonElement>;
 }
 
-export const Button = ({ name, bgColor, withBorder, children, absoluteParms, type, widthParms }: Props) => {
+export const Button = ({
+  name,
+  bgColor,
+  withBorder,
+  children,
+  absoluteParms,
+  type,
+  widthParms,
+  invertColor,
+  onClick,
+}: Props) => {
+  const { isDark } = useContext(ThemeContext);
   const buttonClassNames = classNames('text-zinc-100 font-bold py-1.5 px-2 hover:text-zinc-300', {
-    [`${bgColor} hover:contrast-200`]: bgColor,
+    [`${bgColor} hover:brightness-105`]: bgColor,
     ['border border-zinc-200 hover:border-zinc-300']: withBorder,
     [`${absoluteParms}`]: absoluteParms,
     [`${widthParms}`]: widthParms,
+    [`invert`]: !isDark && invertColor,
   });
 
   return (
-    <button type={type} className={buttonClassNames}>
+    <button onClick={onClick} type={type} className={buttonClassNames}>
       {name}
       {children}
     </button>

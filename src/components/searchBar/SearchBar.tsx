@@ -20,10 +20,11 @@ export const SearchBar = () => {
         />
         <Button
           type="submit"
-          withBorder={true}
+          withBorder={false}
           name={'Search'}
-          absoluteParms={'absolute right-0 bottom-0'}
+          absoluteParms={'absolute right-[1px] top-[1px]'}
           bgColor={'bg-zinc-900'}
+          invertColor={true}
         />
       </div>
     </form>
