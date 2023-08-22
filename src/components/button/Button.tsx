@@ -1,3 +1,4 @@
+import classNames from 'classnames';
 import { ReactNode } from 'react';
 
 interface Props {
@@ -11,17 +12,15 @@ interface Props {
 }
 
 export const Button = ({ name, bgColor, withBorder, children, absoluteParms, type, widthParms }: Props) => {
-  const background = bgColor ? bgColor + ` hover:contrast-200` : 'bg-inherit';
-  const border = withBorder ? 'border border-zinc-200 hover:border-zinc-300' : 'border-none';
-  const absolute = absoluteParms ? absoluteParms : 'static';
-  const width = widthParms ? widthParms : 'w-auto';
+  const buttonClassNames = classNames('text-zinc-100 font-bold py-1.5 px-2 hover:text-zinc-300', {
+    [`${bgColor} hover:contrast-200`]: bgColor,
+    ['border border-zinc-200 hover:border-zinc-300']: withBorder,
+    [`${absoluteParms}`]: absoluteParms,
+    [`${widthParms}`]: widthParms,
+  });
+
   return (
-    <button
-      type={type}
-      className={
-        width + ' ' + absolute + ' ' + border + ' text-zinc-100 font-bold py-1.5 px-2 hover:text-zinc-300 ' + background
-      }
-    >
+    <button type={type} className={buttonClassNames}>
       {name}
       {children}
     </button>
