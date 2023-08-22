@@ -1,11 +1,15 @@
+import { useContext } from 'react';
 import { Link } from 'react-router-dom';
 
 import logo from '../../assets/image/logo.png';
 import { ReactComponent as Sun } from '../../assets/svg/sun.svg';
 import { Button, SearchBar } from '../../components';
+import { ThemeContext } from '../../context';
 
 export const Menu = () => {
   // TODO: Убрать isAuth  когда будут приходить данные
+  const { isDark, toggleTheam } = useContext(ThemeContext);
+
   const isAuth = false;
   return (
     <div className="flex justify-between items-center h-10">
