@@ -27,13 +27,16 @@ export const Button = ({
   onClick,
 }: Props) => {
   const { isDark } = useContext(ThemeContext);
-  const buttonClassNames = classNames('text-zinc-100 font-bold py-1.5 px-2 hover:text-zinc-300', {
-    [`${bgColor} hover:brightness-105`]: bgColor,
-    ['border border-zinc-200 hover:border-zinc-300']: withBorder,
-    [`${absoluteParms}`]: absoluteParms,
-    [`${widthParms}`]: widthParms,
-    [`invert`]: !isDark && invertColor,
-  });
+  const buttonClassNames = classNames(
+    'text-zinc-100 font-bold py-1.5 px-2 hover:text-zinc-300 hover:brightness-105',
+    bgColor,
+    absoluteParms,
+    widthParms,
+    {
+      ['border border-zinc-200 hover:border-zinc-300']: withBorder,
+      invert: !isDark && invertColor,
+    }
+  );
 
   return (
     <button onClick={onClick} type={type} className={buttonClassNames}>

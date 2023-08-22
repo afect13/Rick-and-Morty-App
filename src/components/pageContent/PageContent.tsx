@@ -5,7 +5,7 @@ interface Props {
   children: ReactNode;
 }
 
-export const PageLayout = ({ title, children }: Props) => {
+export const PageContent = ({ title, children }: Props) => {
   return (
     <>
       {title && <h1 className="text-zinc-100 text-4xl font-bold text-center pt-8">{title}</h1>}

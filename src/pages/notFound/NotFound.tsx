@@ -1,10 +1,10 @@
 import { Link } from 'react-router-dom';
 
-import { Button, PageLayout } from '../../components';
+import { Button, PageContent } from '../../components';
 
 export const NotFound = () => {
   return (
-    <PageLayout>
+    <PageContent>
       <div className="flex flex-col w-[500px] items-center gap-4 mx-auto mt-36">
         <h2 className="text-white font-bold text-4xl text-center">We can’t find that page</h2>
         <p className="text-white text-lg text-center">
@@ -14,6 +14,6 @@ export const NotFound = () => {
           <Button withBorder={false} type={'button'} name={'Go to Main'} bgColor={'bg-green-700'} />
         </Link>
       </div>
-    </PageLayout>
+    </PageContent>
   );
 };
