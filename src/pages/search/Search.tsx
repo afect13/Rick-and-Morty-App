@@ -1,11 +1,11 @@
-import { CharacterCard, PageLayout } from '../../components';
+import { CharacterCard, PageContent } from '../../components';
 
 export const Search = () => {
   // Мапить и выводить карточки
   return (
-    <PageLayout title={'Search Result'}>
+    <PageContent title={'Search Result'}>
       <CharacterCard />
       <CharacterCard />
-    </PageLayout>
+    </PageContent>
   );
 };

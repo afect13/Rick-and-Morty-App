@@ -13,21 +13,14 @@ export const Menu = () => {
   // TODO: Убрать isAuth  когда будут приходить данные
   const { isDark, toggleTheam } = useContext(ThemeContext);
   const isAuth = false;
-  const theamIcon = isDark ? (
-    <Sun className="fill-zinc-200 hover:fill-zinc-300" />
-  ) : (
-    <Moon className="fill-zinc-200 hover:fill-zinc-300" />
-  );
+  const iconClass = 'fill-zinc-200 hover:fill-zinc-300';
+  const theamIcon = isDark ? <Sun className={iconClass} /> : <Moon className={iconClass} />;
 
   return (
     <div className="flex justify-between items-center h-10">
       <div className="flex gap-4 px-4 items-center ">
         <Link to="/">
-          {isDark ? (
-            <img className="h-10" src={logoWhite} alt="Logo" />
-          ) : (
-            <img className="h-10" src={logoBlack} alt="Logo" />
-          )}
+          <img className="h-10" src={isDark ? logoWhite : logoBlack} alt="Logo" />
         </Link>
         <div className="w-[300px]">
           <SearchBar />

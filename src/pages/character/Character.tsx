@@ -1,9 +1,9 @@
-import { CharacterProfile, PageLayout } from '../../components';
+import { CharacterProfile, PageContent } from '../../components';
 
 export const Character = () => {
   return (
-    <PageLayout title={'Character'}>
+    <PageContent title={'Character'}>
       <CharacterProfile />
-    </PageLayout>
+    </PageContent>
   );
 };
