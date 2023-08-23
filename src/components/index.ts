@@ -6,6 +6,4 @@ export * from './pageContent/PageContent';
 export * from './listItem/ListItem';
 export * from './characterProfile/CharacterProfile';
 export * from './form/Form';
-export * from './header/Header';
-export * from './layout/Layout';
-export * from './themeProvider/ThemeProvider';
+export * from './loading/Loading';
