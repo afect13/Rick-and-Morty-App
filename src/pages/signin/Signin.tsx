@@ -1,9 +1,9 @@
-import { Form, PageLayout } from '../../components';
+import { Form, PageContent } from '../../components';
 
 export const Signin = () => {
   return (
-    <PageLayout title={'Sign In'}>
+    <PageContent title={'Sign In'}>
       <Form type={'Signin'} />
-    </PageLayout>
+    </PageContent>
   );
 };
