@@ -1,13 +1,18 @@
 import { Link } from 'react-router-dom';
 
-export const CharacterCard = () => {
-  //TODO: Принимать через пропсы ссылку картинки, имя,id для Link
+interface Props {
+  id: number;
+  name: string;
+  image: string;
+}
+export const CharacterCard = ({ id, name, image }: Props) => {
   return (
-    <Link to="/" className="block w-full max-w-[280px] bg-zinc-100 ease-in duration-200 hover:scale-105 ">
-      {/* Картинка */}
-      <img className="w-full" src="" alt=""></img>
-      {/* Имя персонажа */}
-      <h5 className="my-2 text-center text-sm font-bold tracking-tight text-gray-900"></h5>
+    <Link
+      to={`/character/${id}`}
+      className="block w-full max-w-[280px] bg-zinc-100 ease-in duration-200 hover:scale-105 "
+    >
+      <img className="w-full" src={image} alt={name}></img>
+      <h5 className="my-2 text-center text-sm font-bold tracking-tight text-gray-900">{name}</h5>
     </Link>
   );
 };

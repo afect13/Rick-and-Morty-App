@@ -4,8 +4,8 @@ export const Search = () => {
   // Мапить и выводить карточки
   return (
     <PageContent title={'Search Result'}>
-      <CharacterCard />
-      <CharacterCard />
+      {/* <CharacterCard />
+      <CharacterCard /> */}
     </PageContent>
   );
 };
