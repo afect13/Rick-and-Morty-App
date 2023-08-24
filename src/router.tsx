@@ -14,6 +14,7 @@ const History = lazy(() => import('./pages/').then(({ History }) => ({ default: 
 const Signin = lazy(() => import('./pages/').then(({ Signin }) => ({ default: Signin })));
 const Signup = lazy(() => import('./pages/').then(({ Signup }) => ({ default: Signup })));
 const NotFound = lazy(() => import('./pages/').then(({ NotFound }) => ({ default: NotFound })));
+
 const router = createBrowserRouter([
   {
     path: '',
