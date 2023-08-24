@@ -9,7 +9,7 @@ export const Loading = () => {
 
   return (
     <div
-      className={classNames('flex justify-center items-center min-w-screen min-h-screen', {
+      className={classNames('flex justify-center items-center w-full p-32 h-full', {
         ['bg-zinc-700']: isDark,
         ['bg-zinc-400']: !isDark,
       })}

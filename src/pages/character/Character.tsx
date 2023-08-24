@@ -1,6 +1,6 @@
 import { useParams } from 'react-router-dom';
 
-import { CharacterProfile, PageContent } from '../../components';
+import { CharacterProfile, Loading, PageContent } from '../../components';
 import { useGetCharacterQuery } from '../../features';
 
 export const Character = () => {
@@ -9,7 +9,7 @@ export const Character = () => {
 
   return (
     <PageContent title={'Character'}>
-      {isLoading && <div>Loading...</div>}
+      {isLoading && <Loading />}
       {isError && <div>Error...</div>}
       {isSuccess && (
         <CharacterProfile

@@ -1,4 +1,5 @@
-import { ChangeEvent, useEffect, useState } from 'react';
+import { ChangeEvent, FormEvent, useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import { ReactComponent as Search } from '../../assets/svg/search.svg';
 import { Button, Suggestions } from '../../components';
@@ -9,6 +10,7 @@ export const SearchBar = () => {
   const [search, setSearch] = useState('');
   const [dropDown, setDropDown] = useState(false);
   const [isFocused, setIsFocused] = useState(false);
+  const navigate = useNavigate();
   const debouncedValue = useDebounce(search, 500);
 
   const {
@@ -22,13 +24,19 @@ export const SearchBar = () => {
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     setSearch(event.target.value);
   };
+  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const formattedSearch = search.replace(/\s+/g, '+');
+    setIsFocused(false);
+    navigate(`/search?q=${formattedSearch}`);
+  };
   useEffect(() => {
     const handler = setTimeout(() => setDropDown(debouncedValue.length > 2 && isFocused), 200);
     return () => clearTimeout(handler);
   }, [characters, debouncedValue, isFocused]);
 
   return (
-    <form className="w-full">
+    <form onSubmit={handleSubmit} className="w-full">
       <label htmlFor="search" className="mb-2 text-sm font-medium text-zinc-900 sr-only">
         Search
       </label>
