@@ -10,3 +10,5 @@ export * from './header/Header';
 export * from './layout/Layout';
 export * from './themeProvider/ThemeProvider';
 export * from './errorFallback/ErrorFallback';
+export * from './loading/Loading';
+
