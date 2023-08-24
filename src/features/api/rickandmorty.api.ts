@@ -1,6 +1,6 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
-import { Character, ServerResponse } from '../../models/characters';
+import { Character, Response } from '../../models';
 
 export const rickandmortyApi = createApi({
   reducerPath: 'rickandmorty/api',
@@ -10,12 +10,21 @@ export const rickandmortyApi = createApi({
   endpoints: (builder) => ({
     getCharacters: builder.query<Character[], void>({
       query: () => 'character',
-      transformResponse: (response: ServerResponse<Character>) => response.results,
+      transformResponse: (response: Response<Character>) => response.results,
     }),
     getCharacter: builder.query<Character, number>({
       query: (id) => `character/${id}`,
     }),
+    searchCharacter: builder.query<Character[], string>({
+      query: (search) => ({
+        url: `character/`,
+        params: {
+          name: search,
+        },
+      }),
+      transformResponse: (response: Response<Character>) => response.results,
+    }),
   }),
 });
 
-export const { useGetCharactersQuery, useGetCharacterQuery } = rickandmortyApi;
+export const { useGetCharactersQuery, useGetCharacterQuery, useSearchCharacterQuery } = rickandmortyApi;

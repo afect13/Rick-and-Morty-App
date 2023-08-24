@@ -1,4 +1,4 @@
-export interface ServerResponse<T> {
+export interface Response<T> {
   info: Page;
   results: T[];
 }

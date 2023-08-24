@@ -1,7 +1,32 @@
+import { ChangeEvent, useEffect, useState } from 'react';
+
 import { ReactComponent as Search } from '../../assets/svg/search.svg';
-import { Button } from '../../components';
+import { Button, Suggestions } from '../../components';
+import { useSearchCharacterQuery } from '../../features';
+import { useDebounce } from '../../hooks';
 
 export const SearchBar = () => {
+  const [search, setSearch] = useState('');
+  const [dropDown, setDropDown] = useState(false);
+  const [isFocused, setIsFocused] = useState(false);
+  const debouncedValue = useDebounce(search, 500);
+
+  const {
+    data: characters,
+    isLoading,
+    isSuccess,
+    isError,
+  } = useSearchCharacterQuery(debouncedValue, {
+    skip: debouncedValue.length < 2,
+  });
+  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
+    setSearch(event.target.value);
+  };
+  useEffect(() => {
+    const handler = setTimeout(() => setDropDown(debouncedValue.length > 2 && isFocused), 200);
+    return () => clearTimeout(handler);
+  }, [characters, debouncedValue, isFocused]);
+
   return (
     <form className="w-full">
       <label htmlFor="search" className="mb-2 text-sm font-medium text-zinc-900 sr-only">
@@ -12,11 +37,16 @@ export const SearchBar = () => {
           <Search />
         </div>
         <input
+          value={search}
+          onChange={handleChange}
+          onFocus={() => setIsFocused(true)}
+          onClick={() => setIsFocused(true)}
+          onBlur={() => setIsFocused(false)}
           type="search"
           id="search"
           className="block w-full p-2 pl-10 text-sm text-zinc-900 border border-zinc-300 focus:outline-none focus:ring focus:ring-zinc-400  bg-zinc-50"
           placeholder="Search Сharacter..."
-          required
+          autoComplete="off"
         />
         <Button
           type="submit"
@@ -26,6 +56,9 @@ export const SearchBar = () => {
           bgColor={'bg-zinc-900'}
           invertColor={true}
         />
+        {dropDown && (
+          <Suggestions isLoading={isLoading} isSuccess={isSuccess} isError={isError} characters={characters} />
+        )}
       </div>
     </form>
   );
