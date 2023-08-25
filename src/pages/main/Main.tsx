@@ -1,13 +1,13 @@
-import { CharacterCard, PageContent } from '../../components';
+import { CharacterCard, Loading, PageContent } from '../../components';
+import { useGetCharactersQuery } from '../../features';
 
 export const Main = () => {
-  // Мапить и выводить карточки
+  const { data, isLoading, isSuccess, isError } = useGetCharactersQuery();
   return (
     <PageContent title={'Main'}>
-      <CharacterCard />
-      <CharacterCard />
-      <CharacterCard />
-      <CharacterCard />
+      {isLoading && <Loading />}
+      {isError && <div>Error...</div>}
+      {isSuccess && data.map((c) => <CharacterCard key={c.id} name={c.name} id={c.id} image={c.image} />)}
     </PageContent>
   );
 };
