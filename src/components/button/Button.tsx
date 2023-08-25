@@ -40,8 +40,7 @@ export const Button = ({
 
   return (
     <button onClick={onClick} type={type} className={buttonClassNames}>
-      {name}
-      {children}
+      {children || name}
     </button>
   );
 };

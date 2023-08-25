@@ -1,5 +1,6 @@
 import classNames from 'classnames';
 import { useContext } from 'react';
+import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 import logoBlack from '../../assets/image/logo-black.png';
@@ -8,11 +9,11 @@ import { ReactComponent as Moon } from '../../assets/svg/moon.svg';
 import { ReactComponent as Sun } from '../../assets/svg/sun.svg';
 import { Button, SearchBar } from '../../components';
 import { ThemeContext } from '../../context';
+import { getIsAuthenticated } from '../../features';
 
 export const Menu = () => {
-  // TODO: Убрать isAuth  когда будут приходить данные
+  const isAuth = useSelector(getIsAuthenticated);
   const { isDark, toggleTheam } = useContext(ThemeContext);
-  const isAuth = false;
   const iconClass = 'fill-zinc-200 hover:fill-zinc-300';
   const theamIcon = isDark ? <Sun className={iconClass} /> : <Moon className={iconClass} />;
 
