@@ -1,11 +1,12 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import * as yup from 'yup';
 
 import { ReactComponent as LoadingSvg } from '../../assets/svg/loading.svg';
 import { Button } from '../../components';
-import { getIsLoading, signin, signup } from '../../features/';
+import { getData, getIsLoadingAuth, initData, signin, signup } from '../../features/';
 import { useAppDispatch } from '../../store';
 
 interface Props {
@@ -34,7 +35,8 @@ type FormData = yup.InferType<typeof schema>;
 export const Form = ({ type }: Props) => {
   // TODO: Обработать ошибки, модальное или тостеры, настроить редирект при входе
   const dispatch = useAppDispatch();
-  const loading = useSelector(getIsLoading);
+  // const navigate = useNavigate();
+  const loading = useSelector(getIsLoadingAuth);
   const {
     register,
     handleSubmit,
@@ -46,12 +48,14 @@ export const Form = ({ type }: Props) => {
   const onSubmit: SubmitHandler<FormData> = async (data) => {
     if (type === 'Signup') {
       await dispatch(signup({ email: data.email, password: data.password }));
+      await dispatch(initData(data.email));
+      // navigate('/');
     }
     if (type === 'Signin') {
       await dispatch(signin({ email: data.email, password: data.password }));
+      await dispatch(getData(data.email));
     }
   };
-
   return (
     <div className="mx-auto w-[400px]">
       <div className="w-full  bg-zinc-100 border border-zinc-100 p-8">

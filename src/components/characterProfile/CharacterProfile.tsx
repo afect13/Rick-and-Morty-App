@@ -1,6 +1,10 @@
 import classNames from 'classnames';
+import { useSelector } from 'react-redux';
 
+import { ReactComponent as LoadingSvg } from '../../assets/svg/loading.svg';
 import { Button } from '../../components';
+import { getData, getEmail, getFavoritesData, getIsLoadingData, mutationData } from '../../features';
+import { useAppDispatch } from '../../store';
 
 interface Props {
   image: string;
@@ -9,15 +13,28 @@ interface Props {
   species: string;
   location: { name: string };
   gender: string;
+  id: string;
 }
 
-export const CharacterProfile = ({ image, name, status, species, location, gender }: Props) => {
+export const CharacterProfile = ({ image, name, status, species, location, gender, id }: Props) => {
+  const dispatch = useAppDispatch();
+  const favorites = useSelector(getFavoritesData);
+  const email = useSelector(getEmail);
+  const loading = useSelector(getIsLoadingData);
+  const isFavorite = favorites.includes(id);
+  const handleToggleFavorite = async () => {
+    if (email) {
+      const param = isFavorite ? 'remove' : 'add';
+      await dispatch(mutationData({ email, id, param, arrayIs: 'favorites' }));
+      dispatch(getData(email));
+    }
+  };
   const statusColor = classNames('w-3 h-3 rounded-full mr-2', {
     ['bg-red-700']: status === 'Dead',
     ['bg-green-700']: status === 'Alive',
     ['bg-gray-500']: status === 'unknown',
   });
-  const isFavorites = true;
+
   return (
     <div className="flex w-full max-w-[700px] mx-auto rounded-lg p-4 bg-zinc-100">
       <div className=" w-2/4">
@@ -38,11 +55,20 @@ export const CharacterProfile = ({ image, name, status, species, location, gende
           <p className=" text-left text-lg  text-gray-700">{gender}</p>
         </div>
         <div className="flex w-full my-1 mx-2">
-          {isFavorites ? (
-            <Button type={'button'} withBorder={false} bgColor={'bg-green-700'} name={'Add To Favorites'}></Button>
-          ) : (
-            <Button type={'button'} withBorder={false} bgColor={'bg-red-700'} name={'Remove From Favorites'}></Button>
-          )}
+          <Button
+            onClick={handleToggleFavorite}
+            type={'button'}
+            withBorder={false}
+            widthParms={'w-[215px]'}
+            bgColor={isFavorite ? 'bg-red-700' : 'bg-green-700'}
+            name={isFavorite ? 'Remove From Favorites' : 'Add To Favorites'}
+          >
+            {loading && (
+              <div className="flex items-center justify-center">
+                <LoadingSvg className="h-6 w-6 fill-white" />
+              </div>
+            )}
+          </Button>
         </div>
       </div>
     </div>
