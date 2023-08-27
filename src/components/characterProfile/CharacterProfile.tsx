@@ -1,9 +1,8 @@
 import classNames from 'classnames';
 import { useSelector } from 'react-redux';
 
-import { ReactComponent as LoadingSvg } from '../../assets/svg/loading.svg';
-import { Button } from '../../components';
-import { getData, getEmail, getFavoritesData, getIsLoadingData, mutationData } from '../../features';
+import { Button, LoadingIndicator } from '../../components';
+import { addedTarget, getData, getEmail, getFavoritesData, getLoadingButton, mutationData } from '../../features';
 import { useAppDispatch } from '../../store';
 
 interface Props {
@@ -13,19 +12,20 @@ interface Props {
   species: string;
   location: { name: string };
   gender: string;
-  id: string;
+  id: number;
 }
 
 export const CharacterProfile = ({ image, name, status, species, location, gender, id }: Props) => {
   const dispatch = useAppDispatch();
   const favorites = useSelector(getFavoritesData);
   const email = useSelector(getEmail);
-  const loading = useSelector(getIsLoadingData);
+  const loading = useSelector(getLoadingButton);
   const isFavorite = favorites.includes(id);
   const handleToggleFavorite = async () => {
     if (email) {
+      dispatch(addedTarget(id));
       const param = isFavorite ? 'remove' : 'add';
-      await dispatch(mutationData({ email, id, param, arrayIs: 'favorites' }));
+      await dispatch(mutationData({ email, data: id, param, arrayIs: 'favorites' }));
       dispatch(getData(email));
     }
   };
@@ -63,11 +63,7 @@ export const CharacterProfile = ({ image, name, status, species, location, gende
             bgColor={isFavorite ? 'bg-red-700' : 'bg-green-700'}
             name={isFavorite ? 'Remove From Favorites' : 'Add To Favorites'}
           >
-            {loading && (
-              <div className="flex items-center justify-center">
-                <LoadingSvg className="h-6 w-6 fill-white" />
-              </div>
-            )}
+            {loading === id && <LoadingIndicator />}
           </Button>
         </div>
       </div>

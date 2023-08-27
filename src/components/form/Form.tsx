@@ -1,11 +1,9 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
 import * as yup from 'yup';
 
-import { ReactComponent as LoadingSvg } from '../../assets/svg/loading.svg';
-import { Button } from '../../components';
+import { Button, LoadingIndicator } from '../../components';
 import { getData, getIsLoadingAuth, initData, signin, signup } from '../../features/';
 import { useAppDispatch } from '../../store';
 
@@ -35,8 +33,8 @@ type FormData = yup.InferType<typeof schema>;
 export const Form = ({ type }: Props) => {
   // TODO: Обработать ошибки, модальное или тостеры, настроить редирект при входе
   const dispatch = useAppDispatch();
-  // const navigate = useNavigate();
   const loading = useSelector(getIsLoadingAuth);
+
   const {
     register,
     handleSubmit,
@@ -49,7 +47,6 @@ export const Form = ({ type }: Props) => {
     if (type === 'Signup') {
       await dispatch(signup({ email: data.email, password: data.password }));
       await dispatch(initData(data.email));
-      // navigate('/');
     }
     if (type === 'Signin') {
       await dispatch(signin({ email: data.email, password: data.password }));
@@ -89,11 +86,7 @@ export const Form = ({ type }: Props) => {
             <p className="text-sm text-red-600">{errors.password?.message}</p>
           </div>
           <Button type={'submit'} withBorder={false} name={type} bgColor="bg-green-700" widthParms="w-full ">
-            {loading && (
-              <div className="flex items-center justify-center">
-                <LoadingSvg className="h-6 w-6 fill-white" />
-              </div>
-            )}
+            {loading && <LoadingIndicator />}
           </Button>
         </form>
       </div>
