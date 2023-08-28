@@ -3,20 +3,17 @@ import { useSelector } from 'react-redux';
 import { Button, FavoritesList, LoadingIndicator, PageContent } from '../../components';
 import { Loading } from '../../components';
 import {
-  clearSpecificArray,
-  getData,
-  getEmail,
-  getFavoritesData,
-  getLoadingButtonAllRemove,
+  getFavorites,
+  getLoadingButtonAllRemoveFavorites,
+  removeAllFavorites,
   useGetFavoritesCharactersQuery,
 } from '../../features';
 import { useAppDispatch } from '../../store';
 
 export const Favorites = () => {
   const dispatch = useAppDispatch();
-  const favorites = useSelector(getFavoritesData);
-  const email = useSelector(getEmail);
-  const loading = useSelector(getLoadingButtonAllRemove);
+  const favorites = useSelector(getFavorites);
+  const loading = useSelector(getLoadingButtonAllRemoveFavorites);
   const favoritesNotEmpty = favorites.length > 0;
   const {
     data: characters,
@@ -26,12 +23,8 @@ export const Favorites = () => {
     skip: !favoritesNotEmpty,
   });
   const handleRemoveAll = async () => {
-    if (email) {
-      await dispatch(clearSpecificArray({ email, arrayIs: 'favorites' }));
-      dispatch(getData(email));
-    }
+    dispatch(removeAllFavorites());
   };
-
   const favoritesList = (
     <>
       <ul className="w-full">

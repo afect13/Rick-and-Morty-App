@@ -1,20 +1,17 @@
 import { useSelector } from 'react-redux';
 
 import { Button, HistoryList, LoadingIndicator, PageContent } from '../../components';
-import { clearSpecificArray, getData, getEmail, getHistoryData, getLoadingButtonAllRemove } from '../../features';
+import { getHistory, getLoadingButtonAllRemoveHistory, removeAllHistoryLink } from '../../features';
 import { useAppDispatch } from '../../store';
 
 export const History = () => {
   const dispatch = useAppDispatch();
-  const history = useSelector(getHistoryData);
-  const email = useSelector(getEmail);
-  const loading = useSelector(getLoadingButtonAllRemove);
+  const history = useSelector(getHistory);
+
+  const loading = useSelector(getLoadingButtonAllRemoveHistory);
   const historyNotEmpty = history.length > 0;
   const handleRemoveAll = async () => {
-    if (email) {
-      await dispatch(clearSpecificArray({ email, arrayIs: 'history' }));
-      dispatch(getData(email));
-    }
+    dispatch(removeAllHistoryLink());
   };
   return (
     <PageContent title={'History'}>

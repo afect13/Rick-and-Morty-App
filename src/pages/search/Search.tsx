@@ -3,25 +3,17 @@ import { useSelector } from 'react-redux';
 import { useSearchParams } from 'react-router-dom';
 
 import { CharacterCard, Loading, PageContent } from '../../components';
-import { getData, getEmail, getHistoryData, mutationData, useSearchCharacterQuery } from '../../features';
+import { addedHistoryLink, useSearchCharacterQuery } from '../../features';
 import { useAppDispatch } from '../../store';
 
 export const Search = () => {
   const dispatch = useAppDispatch();
   const [searchParams] = useSearchParams();
-  const search = String(searchParams.get('q'));
-  const email = useSelector(getEmail);
-  const history = useSelector(getHistoryData);
-  const { data: character, isError, isLoading, isSuccess } = useSearchCharacterQuery(search);
+  const searchResult = String(searchParams.get('q'));
+  const { data: character, isError, isLoading, isSuccess } = useSearchCharacterQuery(searchResult);
   useEffect(() => {
-    const addToHistory = async () => {
-      if (email && !history.includes(search) && search) {
-        await dispatch(mutationData({ email, data: search, param: 'add', arrayIs: 'history' }));
-        dispatch(getData(email));
-      }
-    };
-    addToHistory();
-  }, [dispatch, email, history, search]);
+    dispatch(addedHistoryLink(searchResult));
+  }, [dispatch, searchResult]);
   return (
     <PageContent title={'Search Result'}>
       {isLoading && <Loading />}

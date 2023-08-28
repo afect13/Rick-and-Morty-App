@@ -3,14 +3,12 @@ import { createSlice } from '@reduxjs/toolkit';
 import { signin, signout, signup } from './auth.actions';
 
 interface AuthState {
-  accessToken: string | null;
   isAuthenticated: boolean;
   email: string | null;
   isLoading: boolean;
   error: string | undefined;
 }
 const initialState: AuthState = {
-  accessToken: null,
   email: null,
   isAuthenticated: false,
   isLoading: false,
@@ -29,8 +27,7 @@ export const authSlice = createSlice({
       })
       .addCase(signup.fulfilled, (state, action) => {
         state.isLoading = false;
-        state.accessToken = action.payload.accessToken;
-        state.email = action.payload.email;
+        state.email = action.payload;
         state.isAuthenticated = true;
       })
       .addCase(signup.rejected, (state, action) => {
@@ -43,8 +40,7 @@ export const authSlice = createSlice({
       })
       .addCase(signin.fulfilled, (state, action) => {
         state.isLoading = false;
-        state.accessToken = action.payload.accessToken;
-        state.email = action.payload.email;
+        state.email = action.payload;
         state.isAuthenticated = true;
       })
       .addCase(signin.rejected, (state, action) => {
@@ -57,8 +53,7 @@ export const authSlice = createSlice({
       })
       .addCase(signout.fulfilled, (state, action) => {
         state.isLoading = false;
-        state.accessToken = action.payload.accessToken;
-        state.email = action.payload.email;
+        state.email = action.payload;
         state.isAuthenticated = false;
       })
       .addCase(signout.rejected, (state, action) => {

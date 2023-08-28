@@ -16,7 +16,7 @@ export const Signin = () => {
   }, [userIsAuth, navigate]);
   return (
     <PageContent title={'Sign In'}>
-      <Form type={'Signin'} />
+      <Form inputType={'Signin'} />
     </PageContent>
   );
 };

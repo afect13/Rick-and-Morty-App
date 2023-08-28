@@ -2,7 +2,7 @@ import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 import { Button, LoadingIndicator } from '..';
-import { addedTarget, getData, getEmail, getLoadingButton, mutationData } from '../../features';
+import { getLoadingButtonFavorites, removeFavorites } from '../../features';
 import { useAppDispatch } from '../../store';
 
 interface Props {
@@ -13,14 +13,9 @@ interface Props {
 
 export const FavoritesList = ({ id, image, name }: Props) => {
   const dispatch = useAppDispatch();
-  const email = useSelector(getEmail);
-  const loadingButton = useSelector(getLoadingButton);
+  const loadingButton = useSelector(getLoadingButtonFavorites);
   const handleRemoveFavorite = async () => {
-    if (email) {
-      dispatch(addedTarget(id));
-      await dispatch(mutationData({ email, data: id, param: 'remove', arrayIs: 'favorites' }));
-      dispatch(getData(email));
-    }
+    dispatch(removeFavorites(id));
   };
   return (
     <li className="flex justify-between mx-auto  bg-zinc-200 rounded-lg p-2.5 w-[500px] mb-8">

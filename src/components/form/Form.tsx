@@ -4,11 +4,11 @@ import { useSelector } from 'react-redux';
 import * as yup from 'yup';
 
 import { Button, LoadingIndicator } from '../../components';
-import { getData, getIsLoadingAuth, initData, signin, signup } from '../../features/';
+import { getIsLoadingAuth, signin, signup } from '../../features/';
 import { useAppDispatch } from '../../store';
 
 interface Props {
-  type: 'Signup' | 'Signin';
+  inputType: 'Signup' | 'Signin';
 }
 
 const schema = yup
@@ -30,11 +30,9 @@ const schema = yup
 
 type FormData = yup.InferType<typeof schema>;
 
-export const Form = ({ type }: Props) => {
-  // TODO: Обработать ошибки, модальное или тостеры, настроить редирект при входе
+export const Form = ({ inputType }: Props) => {
   const dispatch = useAppDispatch();
   const loading = useSelector(getIsLoadingAuth);
-
   const {
     register,
     handleSubmit,
@@ -43,14 +41,13 @@ export const Form = ({ type }: Props) => {
     resolver: yupResolver(schema),
   });
 
-  const onSubmit: SubmitHandler<FormData> = async (data) => {
-    if (type === 'Signup') {
-      await dispatch(signup({ email: data.email, password: data.password }));
-      await dispatch(initData(data.email));
+  const onSubmit: SubmitHandler<FormData> = (data) => {
+    const { email, password } = data;
+    if (inputType === 'Signup') {
+      dispatch(signup({ email, password }));
     }
-    if (type === 'Signin') {
-      await dispatch(signin({ email: data.email, password: data.password }));
-      await dispatch(getData(data.email));
+    if (inputType === 'Signin') {
+      dispatch(signin({ email, password }));
     }
   };
   return (
@@ -85,7 +82,13 @@ export const Form = ({ type }: Props) => {
             />
             <p className="text-sm text-red-600">{errors.password?.message}</p>
           </div>
-          <Button type={'submit'} withBorder={false} name={type} bgColor="bg-green-700" widthParms="w-full ">
+          <Button
+            type={'submit'}
+            withBorder={false}
+            name={inputType === 'Signup' ? 'Signup' : 'Signin'}
+            bgColor="bg-green-700"
+            widthParms="w-full "
+          >
             {loading && <LoadingIndicator />}
           </Button>
         </form>

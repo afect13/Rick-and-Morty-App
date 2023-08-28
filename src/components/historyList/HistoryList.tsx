@@ -2,23 +2,17 @@ import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 import { Button, LoadingIndicator } from '..';
-import { addedTarget, getData, getEmail, mutationData } from '../../features';
+import { getLoadingButtonHistory, removeHistoryLink } from '../../features';
 import { useAppDispatch } from '../../store';
-import { getLoadingButton } from './../../features/data/data.selectors';
 
 interface Props {
   link: string;
 }
 export const HistoryList = ({ link }: Props) => {
   const dispatch = useAppDispatch();
-  const email = useSelector(getEmail);
-  const loadingButton = useSelector(getLoadingButton);
-  const handleRemoveHistory = async () => {
-    if (email) {
-      dispatch(addedTarget(link));
-      await dispatch(mutationData({ email, data: link, param: 'remove', arrayIs: 'history' }));
-      dispatch(getData(email));
-    }
+  const loadingButton = useSelector(getLoadingButtonHistory);
+  const handleRemoveHistory = () => {
+    dispatch(removeHistoryLink(link));
   };
   return (
     <li className="flex justify-between mx-auto  bg-zinc-200 rounded-lg p-2.5 w-[500px] mb-8">

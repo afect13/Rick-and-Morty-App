@@ -2,7 +2,7 @@ import classNames from 'classnames';
 import { useSelector } from 'react-redux';
 
 import { Button, LoadingIndicator } from '../../components';
-import { addedTarget, getData, getEmail, getFavoritesData, getLoadingButton, mutationData } from '../../features';
+import { getFavorites, getLoadingButtonFavorites, toggleFavorites } from '../../features';
 import { useAppDispatch } from '../../store';
 
 interface Props {
@@ -17,17 +17,11 @@ interface Props {
 
 export const CharacterProfile = ({ image, name, status, species, location, gender, id }: Props) => {
   const dispatch = useAppDispatch();
-  const favorites = useSelector(getFavoritesData);
-  const email = useSelector(getEmail);
-  const loading = useSelector(getLoadingButton);
+  const favorites = useSelector(getFavorites);
+  const loading = useSelector(getLoadingButtonFavorites);
   const isFavorite = favorites.includes(id);
-  const handleToggleFavorite = async () => {
-    if (email) {
-      dispatch(addedTarget(id));
-      const param = isFavorite ? 'remove' : 'add';
-      await dispatch(mutationData({ email, data: id, param, arrayIs: 'favorites' }));
-      dispatch(getData(email));
-    }
+  const handleToggleFavorite = () => {
+    dispatch(toggleFavorites(id));
   };
   const statusColor = classNames('w-3 h-3 rounded-full mr-2', {
     ['bg-red-700']: status === 'Dead',

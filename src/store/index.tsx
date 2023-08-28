@@ -1,12 +1,13 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { useDispatch } from 'react-redux';
 
-import { authSlice, dataSlice, rickandmortyApi } from '../features';
+import { authSlice, favoritesSlice, historySlice, rickandmortyApi } from '../features';
 
 export const store = configureStore({
   reducer: {
     auth: authSlice.reducer,
-    data: dataSlice.reducer,
+    favorites: favoritesSlice.reducer,
+    history: historySlice.reducer,
     [rickandmortyApi.reducerPath]: rickandmortyApi.reducer,
   },
   middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(rickandmortyApi.middleware),
