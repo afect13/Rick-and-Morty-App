@@ -29,11 +29,9 @@ export const historySlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(addedHistoryLink.pending, (state) => {
-        state.isLoading = true;
         state.error = undefined;
       })
       .addCase(addedHistoryLink.rejected, (state, action) => {
-        state.isLoading = false;
         state.error = action.error.code;
       })
       .addCase(removeHistoryLink.pending, (state) => {
@@ -66,6 +64,7 @@ export const historySlice = createSlice({
       })
       .addCase(addedCurrentLink, (state, action) => {
         state.isLoadingByLink = action.payload.target;
+        state.isLoading = true;
       })
       .addCase(resetHisoryStore, (state, action) => {
         state.history = action.payload;
