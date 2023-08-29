@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
 interface Props {
@@ -15,4 +16,10 @@ export const CharacterCard = ({ id, name, image }: Props) => {
       <h5 className="my-2 text-center text-sm font-bold tracking-tight text-gray-900">{name}</h5>
     </Link>
   );
+};
+
+CharacterCard.propTypes = {
+  id: PropTypes.number.isRequired,
+  name: PropTypes.string.isRequired,
+  image: PropTypes.string.isRequired,
 };

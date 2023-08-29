@@ -1,4 +1,5 @@
 import classNames from 'classnames';
+import PropTypes from 'prop-types';
 import { ReactNode, useContext } from 'react';
 
 import { ThemeContext } from '../../context';
@@ -19,4 +20,8 @@ export const Header = ({ children }: Props) => {
       <nav className="max-w-screen-lg py-4 mx-auto">{children}</nav>
     </header>
   );
+};
+
+Header.propTypes = {
+  children: PropTypes.node.isRequired,
 };
