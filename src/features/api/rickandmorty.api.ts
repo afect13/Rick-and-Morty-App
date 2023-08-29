@@ -24,7 +24,12 @@ export const rickandmortyApi = createApi({
       }),
       transformResponse: (response: Response<Character>) => response.results,
     }),
+    getFavoritesCharacters: builder.query<Character[], number[]>({
+      query: (array) => `character/${array}`,
+      transformResponse: (response: Character | Character[]) => (Array.isArray(response) ? response : [response]),
+    }),
   }),
 });
 
-export const { useGetCharactersQuery, useGetCharacterQuery, useSearchCharacterQuery } = rickandmortyApi;
+export const { useGetCharactersQuery, useGetCharacterQuery, useSearchCharacterQuery, useGetFavoritesCharactersQuery } =
+  rickandmortyApi;

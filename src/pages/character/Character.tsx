@@ -19,6 +19,7 @@ export const Character = () => {
           status={data.status}
           species={data.species}
           gender={data.gender}
+          id={data.id}
         />
       )}
     </PageContent>

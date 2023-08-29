@@ -2,11 +2,13 @@ import { useSearchParams } from 'react-router-dom';
 
 import { CharacterCard, Loading, PageContent } from '../../components';
 import { useSearchCharacterQuery } from '../../features';
+import { useAddToHistory } from '../../hooks/addToHistory/addToHistory';
 
 export const Search = () => {
   const [searchParams] = useSearchParams();
-  const search = String(searchParams.get('q'));
-  const { data: character, isError, isLoading, isSuccess } = useSearchCharacterQuery(search);
+  const searchResult = String(searchParams.get('q'));
+  const { data: character, isError, isLoading, isSuccess } = useSearchCharacterQuery(searchResult);
+  useAddToHistory(searchResult);
   return (
     <PageContent title={'Search Result'}>
       {isLoading && <Loading />}

@@ -1,5 +1,6 @@
 import classNames from 'classnames';
 import { useContext } from 'react';
+import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 import logoBlack from '../../assets/image/logo-black.png';
@@ -8,14 +9,18 @@ import { ReactComponent as Moon } from '../../assets/svg/moon.svg';
 import { ReactComponent as Sun } from '../../assets/svg/sun.svg';
 import { Button, SearchBar } from '../../components';
 import { ThemeContext } from '../../context';
+import { getIsAuthenticated, signout } from '../../features';
+import { useAppDispatch } from '../../store';
 
 export const Menu = () => {
-  // TODO: Убрать isAuth  когда будут приходить данные
+  const dispatch = useAppDispatch();
+  const isAuth = useSelector(getIsAuthenticated);
   const { isDark, toggleTheam } = useContext(ThemeContext);
-  const isAuth = false;
   const iconClass = 'fill-zinc-200 hover:fill-zinc-300';
   const theamIcon = isDark ? <Sun className={iconClass} /> : <Moon className={iconClass} />;
-
+  const handleSingout = () => {
+    dispatch(signout());
+  };
   return (
     <div className="flex justify-between items-center h-10">
       <div className="flex gap-4 px-4 items-center ">
@@ -44,7 +49,7 @@ export const Menu = () => {
               <Link to="/history">
                 <Button type={'button'} name={'History'} withBorder={false} invertColor={true} />
               </Link>
-              <Button type={'button'} name={'Exit'} withBorder={true} invertColor={true} />
+              <Button onClick={handleSingout} type={'button'} name={'Exit'} withBorder={true} invertColor={true} />
             </>
           ) : (
             <>
