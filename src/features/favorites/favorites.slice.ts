@@ -14,15 +14,13 @@ interface FavoritesState {
   favorites: number[];
   isLoading: boolean;
   error: string | undefined;
-  currentBtn: number | null;
-  AllRemoveBtn: boolean;
+  isLoadingById: number | null;
 }
 const initialState: FavoritesState = {
   favorites: [],
   isLoading: false,
   error: undefined,
-  currentBtn: null,
-  AllRemoveBtn: false,
+  isLoadingById: null,
 };
 
 export const favoritesSlice = createSlice({
@@ -48,12 +46,10 @@ export const favoritesSlice = createSlice({
         state.error = action.error.code;
       })
       .addCase(removeAllFavorites.pending, (state) => {
-        state.AllRemoveBtn = true;
         state.isLoading = true;
         state.error = undefined;
       })
       .addCase(removeAllFavorites.rejected, (state, action) => {
-        state.AllRemoveBtn = false;
         state.isLoading = false;
         state.error = action.error.code;
       })
@@ -63,8 +59,7 @@ export const favoritesSlice = createSlice({
       .addCase(updateFavoritesState.fulfilled, (state, action) => {
         state.isLoading = false;
         state.favorites = action.payload;
-        state.currentBtn = null;
-        state.AllRemoveBtn = false;
+        state.isLoadingById = null;
       })
       .addCase(updateFavoritesState.rejected, (state, action) => {
         state.isLoading = false;
@@ -77,7 +72,7 @@ export const favoritesSlice = createSlice({
         state.error = action.error.code;
       })
       .addCase(addedCurrentId, (state, action) => {
-        state.currentBtn = action.payload.target;
+        state.isLoadingById = action.payload.target;
       })
       .addCase(resetFavoritesStore, (state, action) => {
         state.favorites = action.payload;

@@ -1,18 +1,14 @@
-import { useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
 
 import { CharacterCard, Loading, PageContent } from '../../components';
-import { addedHistoryLink, useSearchCharacterQuery } from '../../features';
-import { useAppDispatch } from '../../store';
+import { useSearchCharacterQuery } from '../../features';
+import { useAddToHistory } from '../../hooks/addToHistory/addToHistory';
 
 export const Search = () => {
-  const dispatch = useAppDispatch();
   const [searchParams] = useSearchParams();
   const searchResult = String(searchParams.get('q'));
   const { data: character, isError, isLoading, isSuccess } = useSearchCharacterQuery(searchResult);
-  useEffect(() => {
-    dispatch(addedHistoryLink(searchResult));
-  }, [dispatch, searchResult]);
+  useAddToHistory(searchResult);
   return (
     <PageContent title={'Search Result'}>
       {isLoading && <Loading />}

@@ -1,8 +1,8 @@
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
-import { Button, LoadingIndicator } from '..';
-import { getLoadingButtonHistory, removeHistoryLink } from '../../features';
+import { Button, LoadingIndicator } from '../../components';
+import { getIsLoadingByLinkHistory, removeHistoryLink } from '../../features';
 import { useAppDispatch } from '../../store';
 
 interface Props {
@@ -10,7 +10,7 @@ interface Props {
 }
 export const HistoryList = ({ link }: Props) => {
   const dispatch = useAppDispatch();
-  const loadingButton = useSelector(getLoadingButtonHistory);
+  const loadingByLink = useSelector(getIsLoadingByLinkHistory);
   const handleRemoveHistory = () => {
     dispatch(removeHistoryLink(link));
   };
@@ -33,7 +33,7 @@ export const HistoryList = ({ link }: Props) => {
           bgColor="bg-red-600"
           withBorder={true}
         >
-          {loadingButton === link && <LoadingIndicator />}
+          {loadingByLink === link && <LoadingIndicator />}
         </Button>
       </div>
     </li>

@@ -4,7 +4,8 @@ import { Button, FavoritesList, LoadingIndicator, PageContent } from '../../comp
 import { Loading } from '../../components';
 import {
   getFavorites,
-  getLoadingButtonAllRemoveFavorites,
+  getIsLoadingByIdFavorites,
+  getIsLoadingGlobalFavorites,
   removeAllFavorites,
   useGetFavoritesCharactersQuery,
 } from '../../features';
@@ -13,7 +14,8 @@ import { useAppDispatch } from '../../store';
 export const Favorites = () => {
   const dispatch = useAppDispatch();
   const favorites = useSelector(getFavorites);
-  const loading = useSelector(getLoadingButtonAllRemoveFavorites);
+  const loadingById = useSelector(getIsLoadingByIdFavorites);
+  const loadingGlobal = useSelector(getIsLoadingGlobalFavorites);
   const favoritesNotEmpty = favorites.length > 0;
   const {
     data: characters,
@@ -39,7 +41,7 @@ export const Favorites = () => {
           bgColor={'bg-red-600'}
           withBorder={false}
         >
-          {loading && <LoadingIndicator />}
+          {loadingGlobal && !loadingById && <LoadingIndicator />}
         </Button>
       </div>
     </>

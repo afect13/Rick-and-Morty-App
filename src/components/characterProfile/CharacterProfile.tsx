@@ -2,7 +2,7 @@ import classNames from 'classnames';
 import { useSelector } from 'react-redux';
 
 import { Button, LoadingIndicator } from '../../components';
-import { getFavorites, getLoadingButtonFavorites, toggleFavorites } from '../../features';
+import { getFavorites, getIsLoadingByIdFavorites, toggleFavorites } from '../../features';
 import { useAppDispatch } from '../../store';
 
 interface Props {
@@ -18,7 +18,7 @@ interface Props {
 export const CharacterProfile = ({ image, name, status, species, location, gender, id }: Props) => {
   const dispatch = useAppDispatch();
   const favorites = useSelector(getFavorites);
-  const loading = useSelector(getLoadingButtonFavorites);
+  const loadingById = useSelector(getIsLoadingByIdFavorites);
   const isFavorite = favorites.includes(id);
   const handleToggleFavorite = () => {
     dispatch(toggleFavorites(id));
@@ -57,7 +57,7 @@ export const CharacterProfile = ({ image, name, status, species, location, gende
             bgColor={isFavorite ? 'bg-red-700' : 'bg-green-700'}
             name={isFavorite ? 'Remove From Favorites' : 'Add To Favorites'}
           >
-            {loading === id && <LoadingIndicator />}
+            {loadingById === id && <LoadingIndicator />}
           </Button>
         </div>
       </div>

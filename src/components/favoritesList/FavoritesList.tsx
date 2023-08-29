@@ -2,7 +2,7 @@ import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 import { Button, LoadingIndicator } from '..';
-import { getLoadingButtonFavorites, removeFavorites } from '../../features';
+import { getIsLoadingByIdFavorites, removeFavorites } from '../../features';
 import { useAppDispatch } from '../../store';
 
 interface Props {
@@ -13,7 +13,7 @@ interface Props {
 
 export const FavoritesList = ({ id, image, name }: Props) => {
   const dispatch = useAppDispatch();
-  const loadingButton = useSelector(getLoadingButtonFavorites);
+  const loadingById = useSelector(getIsLoadingByIdFavorites);
   const handleRemoveFavorite = async () => {
     dispatch(removeFavorites(id));
   };
@@ -39,7 +39,7 @@ export const FavoritesList = ({ id, image, name }: Props) => {
           bgColor="bg-red-600"
           withBorder={true}
         >
-          {loadingButton === id && <LoadingIndicator />}
+          {loadingById === id && <LoadingIndicator />}
         </Button>
       </div>
     </li>

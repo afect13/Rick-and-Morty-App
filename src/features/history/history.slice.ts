@@ -13,15 +13,13 @@ interface HistoryState {
   history: string[];
   isLoading: boolean;
   error: string | undefined;
-  currentBtn: string | null;
-  AllRemoveBtn: boolean;
+  isLoadingByLink: string | null;
 }
 const initialState: HistoryState = {
   history: [],
   isLoading: false,
   error: undefined,
-  currentBtn: null,
-  AllRemoveBtn: false,
+  isLoadingByLink: null,
 };
 
 export const historySlice = createSlice({
@@ -47,12 +45,10 @@ export const historySlice = createSlice({
         state.error = action.error.code;
       })
       .addCase(removeAllHistoryLink.pending, (state) => {
-        state.AllRemoveBtn = true;
         state.isLoading = true;
         state.error = undefined;
       })
       .addCase(removeAllHistoryLink.rejected, (state, action) => {
-        state.AllRemoveBtn = false;
         state.isLoading = false;
         state.error = action.error.code;
       })
@@ -62,15 +58,14 @@ export const historySlice = createSlice({
       .addCase(updateHistoryState.fulfilled, (state, action) => {
         state.isLoading = false;
         state.history = action.payload;
-        state.currentBtn = null;
-        state.AllRemoveBtn = false;
+        state.isLoadingByLink = null;
       })
       .addCase(updateHistoryState.rejected, (state, action) => {
         state.isLoading = false;
         state.error = action.error.code;
       })
       .addCase(addedCurrentLink, (state, action) => {
-        state.currentBtn = action.payload.target;
+        state.isLoadingByLink = action.payload.target;
       })
       .addCase(resetHisoryStore, (state, action) => {
         state.history = action.payload;
