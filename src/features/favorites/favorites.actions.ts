@@ -41,7 +41,7 @@ export const removeFavorites = createAsyncThunk<number, number, { state: RootSta
       await updateDoc(docRef, {
         favorites: arrayRemove(id),
       });
-      dispatch(updateFavoritesState(auth.email));
+      await dispatch(updateFavoritesState(auth.email));
     }
     return id;
   }

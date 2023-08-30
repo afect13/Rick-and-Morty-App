@@ -1,14 +1,14 @@
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
-import { Button, LoadingIndicator } from '../../components';
+import { Button, LoadingIndicator } from '..';
 import { getIsLoadingByLinkHistory, removeHistoryLink } from '../../features';
 import { useAppDispatch } from '../../store';
 
 interface Props {
   link: string;
 }
-export const HistoryList = ({ link }: Props) => {
+export const HistoryItem = ({ link }: Props) => {
   const dispatch = useAppDispatch();
   const loadingByLink = useSelector(getIsLoadingByLinkHistory);
   const handleRemoveHistory = () => {

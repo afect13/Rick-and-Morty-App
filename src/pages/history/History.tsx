@@ -1,6 +1,6 @@
 import { useSelector } from 'react-redux';
 
-import { Button, HistoryList, LoadingIndicator, PageContent } from '../../components';
+import { Button, HistoryItem, LoadingIndicator, PageContent } from '../../components';
 import { getHistory, getIsLoadingByLinkHistory, getIsLoadingGlobalHistory, removeAllHistoryLink } from '../../features';
 import { useAppDispatch } from '../../store';
 
@@ -20,7 +20,7 @@ export const History = () => {
         <>
           <ul className="w-full">
             {history.map((h, i) => (
-              <HistoryList key={i} link={h} />
+              <HistoryItem key={i} link={h} />
             ))}
           </ul>
           <div className="flex w-full justify-center">

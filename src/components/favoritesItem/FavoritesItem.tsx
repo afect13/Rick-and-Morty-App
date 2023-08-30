@@ -11,7 +11,7 @@ interface Props {
   image: string;
 }
 
-export const FavoritesList = ({ id, image, name }: Props) => {
+export const FavoritesItem = ({ id, image, name }: Props) => {
   const dispatch = useAppDispatch();
   const loadingById = useSelector(getIsLoadingByIdFavorites);
   const handleRemoveFavorite = async () => {

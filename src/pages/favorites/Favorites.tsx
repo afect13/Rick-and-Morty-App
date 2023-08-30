@@ -1,6 +1,6 @@
 import { useSelector } from 'react-redux';
 
-import { Button, FavoritesList, LoadingIndicator, PageContent } from '../../components';
+import { Button, FavoritesItem, LoadingIndicator, PageContent } from '../../components';
 import { Loading } from '../../components';
 import {
   getFavorites,
@@ -30,7 +30,7 @@ export const Favorites = () => {
   const favoritesList = (
     <>
       <ul className="w-full">
-        {isSuccess && characters?.map((c) => <FavoritesList key={c.id} id={c.id} image={c.image} name={c.name} />)}
+        {isSuccess && characters?.map((c) => <FavoritesItem key={c.id} id={c.id} image={c.image} name={c.name} />)}
       </ul>
       <div className="flex w-full justify-center">
         <Button
