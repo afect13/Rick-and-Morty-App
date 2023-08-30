@@ -6,7 +6,7 @@ import {
   getFavorites,
   getIsLoadingByIdFavorites,
   getIsLoadingGlobalFavorites,
-  removeAllFavorites,
+  removeAllFromFavorites,
   useGetFavoritesCharactersQuery,
 } from '../../features';
 import { useAppDispatch } from '../../store';
@@ -25,7 +25,7 @@ export const Favorites = () => {
     skip: !favoritesNotEmpty,
   });
   const handleRemoveAll = async () => {
-    dispatch(removeAllFavorites());
+    dispatch(removeAllFromFavorites());
   };
   const favoritesList = (
     <>

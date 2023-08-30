@@ -1,12 +1,10 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 import {
-  addedAlertEvent,
+  addToFavorites,
   addedCurrentId,
-  addedFavorites,
-  removeAlertEvent,
-  removeAllFavorites,
-  removeFavorites,
+  removeAllFromFavorites,
+  removeFromFavorites,
   resetFavoritesStore,
   toggleFavorites,
   updateFavoritesState,
@@ -17,14 +15,12 @@ interface FavoritesState {
   isLoading: boolean;
   error: string | undefined;
   isLoadingById: number | null;
-  alertEvent: { showIs: string | null; message: string | null };
 }
 const initialState: FavoritesState = {
   favorites: [],
   isLoading: false,
   error: undefined,
   isLoadingById: null,
-  alertEvent: { showIs: null, message: null },
 };
 
 export const favoritesSlice = createSlice({
@@ -33,27 +29,27 @@ export const favoritesSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(addedFavorites.pending, (state) => {
+      .addCase(addToFavorites.pending, (state) => {
         state.isLoading = true;
         state.error = undefined;
       })
-      .addCase(addedFavorites.rejected, (state, action) => {
+      .addCase(addToFavorites.rejected, (state, action) => {
         state.isLoading = false;
         state.error = action.error.code;
       })
-      .addCase(removeFavorites.pending, (state) => {
+      .addCase(removeFromFavorites.pending, (state) => {
         state.isLoading = true;
         state.error = undefined;
       })
-      .addCase(removeFavorites.rejected, (state, action) => {
+      .addCase(removeFromFavorites.rejected, (state, action) => {
         state.isLoading = false;
         state.error = action.error.code;
       })
-      .addCase(removeAllFavorites.pending, (state) => {
+      .addCase(removeAllFromFavorites.pending, (state) => {
         state.isLoading = true;
         state.error = undefined;
       })
-      .addCase(removeAllFavorites.rejected, (state, action) => {
+      .addCase(removeAllFromFavorites.rejected, (state, action) => {
         state.isLoading = false;
         state.error = action.error.code;
       })
@@ -80,12 +76,6 @@ export const favoritesSlice = createSlice({
       })
       .addCase(resetFavoritesStore, (state, action) => {
         state.favorites = action.payload;
-      })
-      .addCase(addedAlertEvent, (state, action) => {
-        state.alertEvent = action.payload;
-      })
-      .addCase(removeAlertEvent, (state, action) => {
-        state.alertEvent = action.payload;
       });
   },
 });

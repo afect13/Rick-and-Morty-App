@@ -15,8 +15,8 @@ export const updateFavoritesState = createAsyncThunk<number[], string>('favorite
   }
 });
 
-export const addedFavorites = createAsyncThunk<number, number, { state: RootState; dispatch: AppDispatch }>(
-  'favorites/added',
+export const addToFavorites = createAsyncThunk<number, number, { state: RootState; dispatch: AppDispatch }>(
+  'favorites/add',
   async (id, { getState, dispatch }) => {
     const { auth } = getState();
     if (auth.email && auth.isAuthenticated) {
@@ -31,7 +31,7 @@ export const addedFavorites = createAsyncThunk<number, number, { state: RootStat
   }
 );
 
-export const removeFavorites = createAsyncThunk<number, number, { state: RootState; dispatch: AppDispatch }>(
+export const removeFromFavorites = createAsyncThunk<number, number, { state: RootState; dispatch: AppDispatch }>(
   'favorites/remove',
   async (id, { getState, dispatch }) => {
     const { auth } = getState();
@@ -41,13 +41,13 @@ export const removeFavorites = createAsyncThunk<number, number, { state: RootSta
       await updateDoc(docRef, {
         favorites: arrayRemove(id),
       });
-      await dispatch(updateFavoritesState(auth.email));
+      dispatch(updateFavoritesState(auth.email));
     }
     return id;
   }
 );
 
-export const removeAllFavorites = createAsyncThunk<void, void, { state: RootState; dispatch: AppDispatch }>(
+export const removeAllFromFavorites = createAsyncThunk<void, void, { state: RootState; dispatch: AppDispatch }>(
   'favorites/removeAll',
   async (_, { getState, dispatch }) => {
     const { auth } = getState();
@@ -66,10 +66,10 @@ export const toggleFavorites = createAsyncThunk<void, number, { state: RootState
   async (id, { getState, dispatch }) => {
     const { favorites, auth } = getState();
     if (favorites.favorites.includes(id) && auth.isAuthenticated) {
-      dispatch(removeFavorites(id));
+      dispatch(removeFromFavorites(id));
     }
     if (!favorites.favorites.includes(id) && auth.isAuthenticated) {
-      dispatch(addedFavorites(id));
+      dispatch(addToFavorites(id));
     }
   }
 );
@@ -85,23 +85,5 @@ export const addedCurrentId = createAction('favorites/targetId', (target: number
 export const resetFavoritesStore = createAction('favorites/resetStore', () => {
   return {
     payload: [],
-  };
-});
-
-export const addedAlertEvent = createAction('favorites/addedAlert', (message: string, showIs: string) => {
-  return {
-    payload: {
-      showIs,
-      message,
-    },
-  };
-});
-
-export const removeAlertEvent = createAction('favorites/removeAlert', () => {
-  return {
-    payload: {
-      showIs: null,
-      message: null,
-    },
   };
 });
