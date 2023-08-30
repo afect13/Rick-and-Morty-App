@@ -3,8 +3,10 @@ import { createSlice } from '@reduxjs/toolkit';
 import {
   addedCurrentId,
   addedFavorites,
+  addedMessage,
   removeAllFavorites,
   removeFavorites,
+  removeMessage,
   resetFavoritesStore,
   toggleFavorites,
   updateFavoritesState,
@@ -15,12 +17,14 @@ interface FavoritesState {
   isLoading: boolean;
   error: string | undefined;
   isLoadingById: number | null;
+  message: string | null;
 }
 const initialState: FavoritesState = {
   favorites: [],
   isLoading: false,
   error: undefined,
   isLoadingById: null,
+  message: null,
 };
 
 export const favoritesSlice = createSlice({
@@ -76,6 +80,12 @@ export const favoritesSlice = createSlice({
       })
       .addCase(resetFavoritesStore, (state, action) => {
         state.favorites = action.payload;
+      })
+      .addCase(addedMessage, (state, action) => {
+        state.message = action.payload;
+      })
+      .addCase(removeMessage, (state, action) => {
+        state.message = action.payload;
       });
   },
 });

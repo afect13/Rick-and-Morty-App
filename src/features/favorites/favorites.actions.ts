@@ -15,7 +15,7 @@ export const updateFavoritesState = createAsyncThunk<number[], string>('favorite
   }
 });
 
-export const addedFavorites = createAsyncThunk<void, number, { state: RootState; dispatch: AppDispatch }>(
+export const addedFavorites = createAsyncThunk<number, number, { state: RootState; dispatch: AppDispatch }>(
   'favorites/added',
   async (id, { getState, dispatch }) => {
     const { auth } = getState();
@@ -27,10 +27,11 @@ export const addedFavorites = createAsyncThunk<void, number, { state: RootState;
       });
       dispatch(updateFavoritesState(auth.email));
     }
+    return id;
   }
 );
 
-export const removeFavorites = createAsyncThunk<void, number, { state: RootState; dispatch: AppDispatch }>(
+export const removeFavorites = createAsyncThunk<number, number, { state: RootState; dispatch: AppDispatch }>(
   'favorites/remove',
   async (id, { getState, dispatch }) => {
     const { auth } = getState();
@@ -42,6 +43,7 @@ export const removeFavorites = createAsyncThunk<void, number, { state: RootState
       });
       dispatch(updateFavoritesState(auth.email));
     }
+    return id;
   }
 );
 
@@ -82,5 +84,17 @@ export const addedCurrentId = createAction('favorites/targetId', (target: number
 export const resetFavoritesStore = createAction('favorites/resetStore', () => {
   return {
     payload: [],
+  };
+});
+
+export const addedMessage = createAction('favorites/addMessage', (message: string) => {
+  return {
+    payload: message,
+  };
+});
+
+export const removeMessage = createAction('favorites/removeMessage', () => {
+  return {
+    payload: null,
   };
 });

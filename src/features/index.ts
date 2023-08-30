@@ -8,3 +8,4 @@ export * from './favorites/favorites.selectors';
 export * from './history/history.slice';
 export * from './history/history.actions';
 export * from './history/history.selectors';
+export * from './listener/listenerMiddleware';
