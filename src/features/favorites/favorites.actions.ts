@@ -64,10 +64,11 @@ export const removeAllFavorites = createAsyncThunk<void, void, { state: RootStat
 export const toggleFavorites = createAsyncThunk<void, number, { state: RootState; dispatch: AppDispatch }>(
   'favorites/toggleFavorites',
   async (id, { getState, dispatch }) => {
-    const { favorites } = getState();
-    if (favorites.favorites.includes(id)) {
+    const { favorites, auth } = getState();
+    if (favorites.favorites.includes(id) && auth.isAuthenticated) {
       dispatch(removeFavorites(id));
-    } else {
+    }
+    if (!favorites.favorites.includes(id) && auth.isAuthenticated) {
       dispatch(addedFavorites(id));
     }
   }
@@ -87,14 +88,20 @@ export const resetFavoritesStore = createAction('favorites/resetStore', () => {
   };
 });
 
-export const addedMessage = createAction('favorites/addMessage', (message: string) => {
+export const addedAlertEvent = createAction('favorites/addedAlert', (message: string, showIs: string) => {
   return {
-    payload: message,
+    payload: {
+      showIs,
+      message,
+    },
   };
 });
 
-export const removeMessage = createAction('favorites/removeMessage', () => {
+export const removeAlertEvent = createAction('favorites/removeAlert', () => {
   return {
-    payload: null,
+    payload: {
+      showIs: null,
+      message: null,
+    },
   };
 });

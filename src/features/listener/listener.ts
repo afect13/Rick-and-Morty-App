@@ -1,7 +1,7 @@
 import { createListenerMiddleware } from '@reduxjs/toolkit';
 import type { TypedStartListening } from '@reduxjs/toolkit';
 
-import { addedFavorites, addedMessage, removeFavorites, removeMessage } from '..';
+import { addedAlertEvent, addedFavorites, removeAlertEvent, removeFavorites } from '../../features';
 import type { AppDispatch, RootState } from '../../store';
 
 export const listenerMiddleware = createListenerMiddleware();
@@ -15,9 +15,9 @@ startAppListening({
   effect: async (action, listenerApi) => {
     if ('payload' in action) {
       const id = action.payload;
-      listenerApi.dispatch(addedMessage(`Character with ID-${id} added to favorites.`));
-      await listenerApi.delay(1000);
-      listenerApi.dispatch(removeMessage());
+      listenerApi.dispatch(addedAlertEvent(`Character with ID-${id} added to favorites.`, 'add'));
+      await listenerApi.delay(1500);
+      listenerApi.dispatch(removeAlertEvent());
     }
   },
 });
@@ -27,9 +27,9 @@ startAppListening({
   effect: async (action, listenerApi) => {
     if ('payload' in action) {
       const id = action.payload;
-      listenerApi.dispatch(addedMessage(`Character with ID-${id} removed from favorites.`));
-      await listenerApi.delay(1000);
-      listenerApi.dispatch(removeMessage());
+      listenerApi.dispatch(addedAlertEvent(`Character with ID-${id} removed from favorites.`, 'remove'));
+      await listenerApi.delay(1500);
+      listenerApi.dispatch(removeAlertEvent());
     }
   },
 });
