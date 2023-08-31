@@ -2,7 +2,7 @@ import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 import { Button, LoadingIndicator } from '..';
-import { getIsLoadingByIdFavorites, removeFavorites } from '../../features';
+import { getIsLoadingByIdFavorites, removeFromFavorites } from '../../features';
 import { useAppDispatch } from '../../store';
 
 interface Props {
@@ -11,11 +11,11 @@ interface Props {
   image: string;
 }
 
-export const FavoritesList = ({ id, image, name }: Props) => {
+export const FavoritesItem = ({ id, image, name }: Props) => {
   const dispatch = useAppDispatch();
   const loadingById = useSelector(getIsLoadingByIdFavorites);
   const handleRemoveFavorite = async () => {
-    dispatch(removeFavorites(id));
+    dispatch(removeFromFavorites(id));
   };
   return (
     <li className="flex justify-between mx-auto  bg-zinc-200 rounded-lg p-2.5 w-[500px] mb-8">

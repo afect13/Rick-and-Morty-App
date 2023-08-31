@@ -1,10 +1,10 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 import {
+  addToFavorites,
   addedCurrentId,
-  addedFavorites,
-  removeAllFavorites,
-  removeFavorites,
+  removeAllFromFavorites,
+  removeFromFavorites,
   resetFavoritesStore,
   toggleFavorites,
   updateFavoritesState,
@@ -29,27 +29,27 @@ export const favoritesSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(addedFavorites.pending, (state) => {
+      .addCase(addToFavorites.pending, (state) => {
         state.isLoading = true;
         state.error = undefined;
       })
-      .addCase(addedFavorites.rejected, (state, action) => {
+      .addCase(addToFavorites.rejected, (state, action) => {
         state.isLoading = false;
         state.error = action.error.code;
       })
-      .addCase(removeFavorites.pending, (state) => {
+      .addCase(removeFromFavorites.pending, (state) => {
         state.isLoading = true;
         state.error = undefined;
       })
-      .addCase(removeFavorites.rejected, (state, action) => {
+      .addCase(removeFromFavorites.rejected, (state, action) => {
         state.isLoading = false;
         state.error = action.error.code;
       })
-      .addCase(removeAllFavorites.pending, (state) => {
+      .addCase(removeAllFromFavorites.pending, (state) => {
         state.isLoading = true;
         state.error = undefined;
       })
-      .addCase(removeAllFavorites.rejected, (state, action) => {
+      .addCase(removeAllFromFavorites.rejected, (state, action) => {
         state.isLoading = false;
         state.error = action.error.code;
       })

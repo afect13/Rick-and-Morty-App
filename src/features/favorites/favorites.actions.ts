@@ -15,8 +15,8 @@ export const updateFavoritesState = createAsyncThunk<number[], string>('favorite
   }
 });
 
-export const addedFavorites = createAsyncThunk<void, number, { state: RootState; dispatch: AppDispatch }>(
-  'favorites/added',
+export const addToFavorites = createAsyncThunk<number, number, { state: RootState; dispatch: AppDispatch }>(
+  'favorites/add',
   async (id, { getState, dispatch }) => {
     const { auth } = getState();
     if (auth.email && auth.isAuthenticated) {
@@ -27,10 +27,11 @@ export const addedFavorites = createAsyncThunk<void, number, { state: RootState;
       });
       dispatch(updateFavoritesState(auth.email));
     }
+    return id;
   }
 );
 
-export const removeFavorites = createAsyncThunk<void, number, { state: RootState; dispatch: AppDispatch }>(
+export const removeFromFavorites = createAsyncThunk<number, number, { state: RootState; dispatch: AppDispatch }>(
   'favorites/remove',
   async (id, { getState, dispatch }) => {
     const { auth } = getState();
@@ -42,10 +43,11 @@ export const removeFavorites = createAsyncThunk<void, number, { state: RootState
       });
       dispatch(updateFavoritesState(auth.email));
     }
+    return id;
   }
 );
 
-export const removeAllFavorites = createAsyncThunk<void, void, { state: RootState; dispatch: AppDispatch }>(
+export const removeAllFromFavorites = createAsyncThunk<void, void, { state: RootState; dispatch: AppDispatch }>(
   'favorites/removeAll',
   async (_, { getState, dispatch }) => {
     const { auth } = getState();
@@ -62,11 +64,12 @@ export const removeAllFavorites = createAsyncThunk<void, void, { state: RootStat
 export const toggleFavorites = createAsyncThunk<void, number, { state: RootState; dispatch: AppDispatch }>(
   'favorites/toggleFavorites',
   async (id, { getState, dispatch }) => {
-    const { favorites } = getState();
-    if (favorites.favorites.includes(id)) {
-      dispatch(removeFavorites(id));
-    } else {
-      dispatch(addedFavorites(id));
+    const { favorites, auth } = getState();
+    if (favorites.favorites.includes(id) && auth.isAuthenticated) {
+      dispatch(removeFromFavorites(id));
+    }
+    if (!favorites.favorites.includes(id) && auth.isAuthenticated) {
+      dispatch(addToFavorites(id));
     }
   }
 );

@@ -1,12 +1,12 @@
 import { useSelector } from 'react-redux';
 
-import { Button, FavoritesList, LoadingIndicator, PageContent } from '../../components';
+import { Button, FavoritesItem, LoadingIndicator, PageContent } from '../../components';
 import { Loading } from '../../components';
 import {
   getFavorites,
   getIsLoadingByIdFavorites,
   getIsLoadingGlobalFavorites,
-  removeAllFavorites,
+  removeAllFromFavorites,
   useGetFavoritesCharactersQuery,
 } from '../../features';
 import { useAppDispatch } from '../../store';
@@ -25,12 +25,12 @@ export const Favorites = () => {
     skip: !favoritesNotEmpty,
   });
   const handleRemoveAll = async () => {
-    dispatch(removeAllFavorites());
+    dispatch(removeAllFromFavorites());
   };
   const favoritesList = (
     <>
       <ul className="w-full">
-        {isSuccess && characters?.map((c) => <FavoritesList key={c.id} id={c.id} image={c.image} name={c.name} />)}
+        {isSuccess && characters?.map((c) => <FavoritesItem key={c.id} id={c.id} image={c.image} name={c.name} />)}
       </ul>
       <div className="flex w-full justify-center">
         <Button

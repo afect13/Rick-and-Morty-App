@@ -12,5 +12,6 @@ export * from './errorFallback/ErrorFallback';
 export * from './loading/Loading';
 export * from './suggestions/Suggestions';
 export * from './loadingIndicator/LoadingIndicator';
-export * from './favoritesList/FavoritesList';
-export * from './historyList/HistoryList';
+export * from './favoritesItem/FavoritesItem';
+export * from './historyItem/HistoryItem';
+export * from './alerts/Alerts';

@@ -1,18 +1,18 @@
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
-import { Button, LoadingIndicator } from '../../components';
-import { getIsLoadingByLinkHistory, removeHistoryLink } from '../../features';
+import { Button, LoadingIndicator } from '..';
+import { getIsLoadingByLinkHistory, removeFromHistory } from '../../features';
 import { useAppDispatch } from '../../store';
 
 interface Props {
   link: string;
 }
-export const HistoryList = ({ link }: Props) => {
+export const HistoryItem = ({ link }: Props) => {
   const dispatch = useAppDispatch();
   const loadingByLink = useSelector(getIsLoadingByLinkHistory);
   const handleRemoveHistory = () => {
-    dispatch(removeHistoryLink(link));
+    dispatch(removeFromHistory(link));
   };
   return (
     <li className="flex justify-between mx-auto  bg-zinc-200 rounded-lg p-2.5 w-[500px] mb-8">
