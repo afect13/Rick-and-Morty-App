@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom/client';
 import { Provider } from 'react-redux';
 import { RouterProvider } from 'react-router-dom';
 
+import { Console } from './console';
 import './index.css';
 import router from './router';
 import { store } from './store';
@@ -12,6 +13,7 @@ root.render(
   <React.StrictMode>
     <Provider store={store}>
       <RouterProvider router={router} />
+      <Console />
     </Provider>
   </React.StrictMode>
 );
