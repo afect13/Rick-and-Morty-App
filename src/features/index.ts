@@ -8,7 +8,7 @@ export * from './favorites/favorites.selectors';
 export * from './history/history.slice';
 export * from './history/history.actions';
 export * from './history/history.selectors';
-export * from './listener/listener';
+export * from './listeners/favoritesListener';
 export * from './global/global.slice';
 export * from './global/global.actions';
 export * from './global/global.selectors';

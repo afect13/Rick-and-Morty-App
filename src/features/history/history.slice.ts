@@ -1,10 +1,10 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 import {
+  addToHistory,
   addedCurrentLink,
-  addedHistoryLink,
-  removeAllHistoryLink,
-  removeHistoryLink,
+  removeAllFromHistory,
+  removeFromHistory,
   resetHisoryStore,
   updateHistoryState,
 } from './history.actions';
@@ -28,25 +28,25 @@ export const historySlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(addedHistoryLink.pending, (state) => {
+      .addCase(addToHistory.pending, (state) => {
         state.error = undefined;
       })
-      .addCase(addedHistoryLink.rejected, (state, action) => {
+      .addCase(addToHistory.rejected, (state, action) => {
         state.error = action.error.code;
       })
-      .addCase(removeHistoryLink.pending, (state) => {
+      .addCase(removeFromHistory.pending, (state) => {
         state.isLoading = true;
         state.error = undefined;
       })
-      .addCase(removeHistoryLink.rejected, (state, action) => {
+      .addCase(removeFromHistory.rejected, (state, action) => {
         state.isLoading = false;
         state.error = action.error.code;
       })
-      .addCase(removeAllHistoryLink.pending, (state) => {
+      .addCase(removeAllFromHistory.pending, (state) => {
         state.isLoading = true;
         state.error = undefined;
       })
-      .addCase(removeAllHistoryLink.rejected, (state, action) => {
+      .addCase(removeAllFromHistory.rejected, (state, action) => {
         state.isLoading = false;
         state.error = action.error.code;
       })

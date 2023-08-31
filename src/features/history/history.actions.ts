@@ -15,7 +15,7 @@ export const updateHistoryState = createAsyncThunk<string[], string>('history/up
   }
 });
 
-export const addedHistoryLink = createAsyncThunk<void, string, { state: RootState; dispatch: AppDispatch }>(
+export const addToHistory = createAsyncThunk<void, string, { state: RootState; dispatch: AppDispatch }>(
   'history/added',
   async (link, { getState, dispatch }) => {
     const { auth, history } = getState();
@@ -30,7 +30,7 @@ export const addedHistoryLink = createAsyncThunk<void, string, { state: RootStat
   }
 );
 
-export const removeHistoryLink = createAsyncThunk<void, string, { state: RootState; dispatch: AppDispatch }>(
+export const removeFromHistory = createAsyncThunk<void, string, { state: RootState; dispatch: AppDispatch }>(
   'history/remove',
   async (link, { getState, dispatch }) => {
     const { auth } = getState();
@@ -45,7 +45,7 @@ export const removeHistoryLink = createAsyncThunk<void, string, { state: RootSta
   }
 );
 
-export const removeAllHistoryLink = createAsyncThunk<void, void, { state: RootState; dispatch: AppDispatch }>(
+export const removeAllFromHistory = createAsyncThunk<void, void, { state: RootState; dispatch: AppDispatch }>(
   'history/removeAll',
   async (_, { getState, dispatch }) => {
     const { auth } = getState();

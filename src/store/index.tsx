@@ -1,7 +1,14 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { useDispatch } from 'react-redux';
 
-import { authSlice, favoritesSlice, globalSlice, historySlice, listenerMiddleware, rickandmortyApi } from '../features';
+import {
+  authSlice,
+  favoritesListenerMiddleware,
+  favoritesSlice,
+  globalSlice,
+  historySlice,
+  rickandmortyApi,
+} from '../features';
 
 export const store = configureStore({
   reducer: {
@@ -12,7 +19,7 @@ export const store = configureStore({
     [rickandmortyApi.reducerPath]: rickandmortyApi.reducer,
   },
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().prepend(listenerMiddleware.middleware).concat(rickandmortyApi.middleware),
+    getDefaultMiddleware().prepend(favoritesListenerMiddleware.middleware).concat(rickandmortyApi.middleware),
 });
 
 export type RootState = ReturnType<typeof store.getState>;

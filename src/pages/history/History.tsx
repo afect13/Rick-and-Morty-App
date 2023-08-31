@@ -1,7 +1,7 @@
 import { useSelector } from 'react-redux';
 
 import { Button, HistoryItem, LoadingIndicator, PageContent } from '../../components';
-import { getHistory, getIsLoadingByLinkHistory, getIsLoadingGlobalHistory, removeAllHistoryLink } from '../../features';
+import { getHistory, getIsLoadingByLinkHistory, getIsLoadingGlobalHistory, removeAllFromHistory } from '../../features';
 import { useAppDispatch } from '../../store';
 
 export const History = () => {
@@ -12,7 +12,7 @@ export const History = () => {
   const loadingGlobal = useSelector(getIsLoadingGlobalHistory);
   const historyNotEmpty = history.length > 0;
   const handleRemoveAll = async () => {
-    dispatch(removeAllHistoryLink());
+    dispatch(removeAllFromHistory());
   };
   return (
     <PageContent title={'History'}>
