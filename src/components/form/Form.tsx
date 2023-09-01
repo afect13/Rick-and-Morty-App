@@ -11,7 +11,7 @@ interface Props {
   inputType: 'Signup' | 'Signin';
 }
 
-const schema = yup
+export const schema = yup
   .object({
     email: yup
       .string()

@@ -1,60 +1,116 @@
 import { useRef } from 'react';
+import { useSelector } from 'react-redux';
 
-import { HELP, WELCOME_MSG, parseCommandString, searchCharacters, showCharacter, showCharacters } from '../../console';
-import { useLazyGetCharacterQuery, useLazyGetCharactersQuery, useLazySearchCharacterQuery } from '../../features';
+import {
+  msgAuthWarn,
+  msgCharacterIsAdd,
+  msgCharacterIsRemove,
+  msgCharacterWarn,
+  msgCommandNotFound,
+  msgEmptyIdWarn,
+  msgHelp,
+  msgIsAuth,
+  msgIsValid,
+  msgLoginWarn,
+  msgSearchWarn,
+  msgWelcome,
+  parseCommandString,
+  searchCharacters,
+  showCharacter,
+  showCharacters,
+  stlHelp,
+  stlWelcome,
+  validateCredentials,
+} from '../../console';
+import {
+  addToFavorites,
+  getIsAuthenticated,
+  removeFromFavorites,
+  signin,
+  signup,
+  useLazyGetCharacterQuery,
+  useLazyGetCharactersQuery,
+  useLazySearchCharacterQuery,
+} from '../../features';
+import { useAppDispatch } from '../../store';
 
 export const Console = () => {
   /* eslint-disable no-console */
   const isShowWelcome = useRef(false);
+  const dispatch = useAppDispatch();
   const [featchCharacters] = useLazyGetCharactersQuery();
   const [featchSearchCharacters] = useLazySearchCharacterQuery();
   const [featchCharacter] = useLazyGetCharacterQuery();
-  const welcomeStyles = `
-  font-size: 11px;
-  font-weight: bold;
-  color: #0066cc;
-`;
+  const isAuth = useSelector(getIsAuthenticated);
 
-  if (!isShowWelcome.current) console.log(`%c${WELCOME_MSG}`, welcomeStyles);
+  if (isAuth) console.log(msgIsAuth);
+  if (!isShowWelcome.current) console.log(`%c${msgWelcome}`, stlWelcome);
   isShowWelcome.current = true;
   window.sudo = (commandString) => {
-    const { command, args } = parseCommandString(commandString);
+    const { command, params } = parseCommandString(commandString);
     switch (command) {
       case '/help':
-        console.log(HELP);
+        console.log(`%c${msgHelp}`, stlHelp);
         break;
       case '/show':
         showCharacters(featchCharacters);
         break;
       case '/search':
-        if (args && args[0]) {
-          searchCharacters(featchSearchCharacters, args[0]);
+        if (params && params[0]) {
+          searchCharacters(featchSearchCharacters, params[0]);
         } else {
-          console.warn('Enter Search params');
+          console.warn(msgSearchWarn);
         }
         break;
       case '/character':
-        if (args && args[0]) {
-          showCharacter(featchCharacter, args[0]);
+        if (params && params[0]) {
+          showCharacter(featchCharacter, params[0]);
         } else {
-          console.warn('Enter id character');
+          console.warn(msgCharacterWarn);
         }
         break;
       case '/signin':
-        console.log('signin');
+        if (validateCredentials(params) && params) {
+          console.log(msgIsValid);
+          dispatch(signin({ email: params[0], password: params[1] }));
+        } else {
+          console.warn(msgAuthWarn);
+        }
         break;
       case '/signup':
-        console.log('signup');
-        console.log(args);
+        if (validateCredentials(params) && params) {
+          console.log(msgIsValid);
+          dispatch(signup({ email: params[0], password: params[1] }));
+        } else {
+          console.warn(msgAuthWarn);
+        }
         break;
       case '/add':
-        console.log('help');
+        if (isAuth && params && params[0] && Number(params[0])) {
+          dispatch(addToFavorites(Number(params[0])));
+          console.log(msgCharacterIsAdd);
+        } else {
+          if (!isAuth) {
+            console.warn(msgLoginWarn);
+          } else {
+            console.warn(msgEmptyIdWarn);
+          }
+        }
         break;
       case '/remove':
-        console.log('help');
+        if (isAuth && params && params[0] && Number(params[0])) {
+          dispatch(removeFromFavorites(Number(params[0])));
+          console.log(msgCharacterIsRemove);
+        } else {
+          if (!isAuth) {
+            console.warn(msgLoginWarn);
+          } else {
+            console.warn(msgEmptyIdWarn);
+          }
+        }
         break;
       default:
-        console.log('There are no such commands.');
+        console.log(msgCommandNotFound);
     }
   };
   /* eslint-enable no-console */
