@@ -1,7 +1,9 @@
 import classNames from 'classnames';
+import { useContext } from 'react';
 import { useSelector } from 'react-redux';
 
 import { Button, LoadingIndicator } from '../../components';
+import { FeatureContext } from '../../context';
 import { getFavorites, getIsLoadingByIdFavorites, toggleFavorites } from '../../features';
 import { useAppDispatch } from '../../store';
 
@@ -18,11 +20,18 @@ interface Props {
 export const CharacterProfile = ({ image, name, status, species, location, gender, id }: Props) => {
   const dispatch = useAppDispatch();
   const favorites = useSelector(getFavorites);
+  const { isTelegramShareEnabled } = useContext(FeatureContext);
   const loadingById = useSelector(getIsLoadingByIdFavorites);
   const isFavorite = favorites.includes(id);
   const handleToggleFavorite = () => {
     dispatch(toggleFavorites(id));
   };
+
+  const handleShareToTelegram = () => {
+    const telegramUrl = `https://t.me/share/url?url=${window.location.href}&text=${name}`;
+    window.open(telegramUrl, '_blank');
+  };
+
   const statusColor = classNames('w-3 h-3 rounded-full mr-2', {
     ['bg-red-700']: status === 'Dead',
     ['bg-green-700']: status === 'Alive',
@@ -48,7 +57,7 @@ export const CharacterProfile = ({ image, name, status, species, location, gende
           <p className="text-left text-sm  text-gray-500">Gender:</p>
           <p className=" text-left text-lg  text-gray-700">{gender}</p>
         </div>
-        <div className="flex w-full my-1 mx-2">
+        <div className="flex flex-start gap-1 w-full my-1 mx-2">
           <Button
             onClick={handleToggleFavorite}
             type={'button'}
@@ -59,6 +68,16 @@ export const CharacterProfile = ({ image, name, status, species, location, gende
           >
             {loadingById === id && <LoadingIndicator />}
           </Button>
+          {isTelegramShareEnabled && (
+            <Button
+              onClick={handleShareToTelegram}
+              type={'button'}
+              withBorder={false}
+              widthParms={'w-[160px]'}
+              bgColor={'bg-blue-400'}
+              name={'Share Telegram'}
+            ></Button>
+          )}
         </div>
       </div>
     </div>

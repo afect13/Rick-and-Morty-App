@@ -1,14 +1,15 @@
 const url = process.env.REACT_APP_API_URL;
 
-export const checkFeatureFlags = async () => {
+export const checkFeatureFlags = async (setFlag: (flag: boolean) => void): Promise<void> => {
   try {
     if (!url) {
-      throw new Error('URL is not defined');
+      setFlag(false);
+      return;
     }
     const response = await fetch(url);
     const featureFlags = await response.json();
-    return featureFlags;
+    setFlag(featureFlags.isTelegramShareEnabled);
   } catch (e) {
-    return false;
+    setFlag(false);
   }
 };
