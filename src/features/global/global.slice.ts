@@ -3,9 +3,11 @@ import { createSlice } from '@reduxjs/toolkit';
 import { clearAlertParams, setAlertParams } from '../../features';
 
 interface GlobalState {
+  isTelegramShare: boolean;
   alert: { eventType: string | null; message: string | null };
 }
 const initialState: GlobalState = {
+  isTelegramShare: false,
   alert: { eventType: null, message: null },
 };
 
