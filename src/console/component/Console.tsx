@@ -43,8 +43,12 @@ export const Console = () => {
   const [featchCharacter] = useLazyGetCharacterQuery();
   const isAuth = useSelector(getIsAuthenticated);
 
-  if (isAuth) console.log(msgIsAuth);
-  if (!isShowWelcome.current) console.log(`%c${msgWelcome}`, stlWelcome);
+  if (isAuth) {
+    console.log(msgIsAuth);
+  }
+  if (!isShowWelcome.current) {
+    console.log(`%c${msgWelcome}`, stlWelcome);
+  }
   isShowWelcome.current = true;
   window.sudo = (commandString) => {
     const { command, params } = parseCommandString(commandString);
