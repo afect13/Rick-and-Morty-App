@@ -10,5 +10,5 @@ declare module '*.png' {
 }
 
 interface Window {
-  sudo: (command: string) => void;
+  command: (command: string) => void;
 }

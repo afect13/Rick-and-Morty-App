@@ -40,3 +40,5 @@ export const {
   useLazySearchCharacterQuery,
   useLazyGetCharacterQuery,
 } = rickandmortyApi;
+
+export const { endpoints } = rickandmortyApi;

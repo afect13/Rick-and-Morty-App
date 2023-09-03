@@ -1,6 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { useDispatch } from 'react-redux';
 
+import { consoleListenerMiddleware } from '../console/listener/consoleListener';
 import {
   authSlice,
   favoritesListenerMiddleware,
@@ -19,7 +20,9 @@ export const store = configureStore({
     [rickandmortyApi.reducerPath]: rickandmortyApi.reducer,
   },
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().prepend(favoritesListenerMiddleware.middleware).concat(rickandmortyApi.middleware),
+    getDefaultMiddleware()
+      .prepend(favoritesListenerMiddleware.middleware, consoleListenerMiddleware.middleware)
+      .concat(rickandmortyApi.middleware),
 });
 
 export type RootState = ReturnType<typeof store.getState>;
