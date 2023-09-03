@@ -1,16 +1,18 @@
 import { Outlet } from 'react-router-dom';
 
-import { Header, Layout, Menu, ThemeProvider } from './components';
+import { FeatureProvider, Header, Layout, Menu, ThemeProvider } from './components';
 
 function App() {
   return (
     <ThemeProvider>
-      <Header>
-        <Menu />
-      </Header>
-      <Layout>
-        <Outlet />
-      </Layout>
+      <FeatureProvider>
+        <Header>
+          <Menu />
+        </Header>
+        <Layout>
+          <Outlet />
+        </Layout>
+      </FeatureProvider>
     </ThemeProvider>
   );
 }
