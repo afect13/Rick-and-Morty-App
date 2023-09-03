@@ -15,3 +15,4 @@ export * from './loadingIndicator/LoadingIndicator';
 export * from './favoritesItem/FavoritesItem';
 export * from './historyItem/HistoryItem';
 export * from './alerts/Alerts';
+export * from './featureProvider/FeatureProvider';
