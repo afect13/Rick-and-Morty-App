@@ -6,9 +6,9 @@ export interface ThemeContext {
 }
 
 export interface FeatureContext {
-  isTelegramShareEnabled: boolean;
+  featureFlagIs: boolean;
 }
 
 export const ThemeContext = createContext<ThemeContext>({ isDark: true });
 
-export const FeatureContext = createContext<FeatureContext>({ isTelegramShareEnabled: false });
+export const FeatureContext = createContext<FeatureContext>({ featureFlagIs: false });

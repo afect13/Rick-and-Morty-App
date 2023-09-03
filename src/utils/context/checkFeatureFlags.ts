@@ -1,15 +1,14 @@
 const url = process.env.REACT_APP_API_URL;
 
-export const checkFeatureFlags = async (setFlag: (flag: boolean) => void): Promise<void> => {
+export const checkFeatureFlags = async (): Promise<boolean> => {
   try {
     if (!url) {
-      setFlag(false);
-      return;
+      return false;
     }
     const response = await fetch(url);
     const featureFlags = await response.json();
-    setFlag(featureFlags.isTelegramShareEnabled);
+    return featureFlags.isTelegramShareEnabled;
   } catch (e) {
-    setFlag(false);
+    return false;
   }
 };

@@ -20,7 +20,7 @@ interface Props {
 export const CharacterProfile = ({ image, name, status, species, location, gender, id }: Props) => {
   const dispatch = useAppDispatch();
   const favorites = useSelector(getFavorites);
-  const { isTelegramShareEnabled } = useContext(FeatureContext);
+  const { featureFlagIs } = useContext(FeatureContext);
   const loadingById = useSelector(getIsLoadingByIdFavorites);
   const isFavorite = favorites.includes(id);
   const handleToggleFavorite = () => {
@@ -68,7 +68,7 @@ export const CharacterProfile = ({ image, name, status, species, location, gende
           >
             {loadingById === id && <LoadingIndicator />}
           </Button>
-          {isTelegramShareEnabled && (
+          {featureFlagIs && (
             <Button
               onClick={handleShareToTelegram}
               type={'button'}

@@ -8,17 +8,12 @@ interface Props {
 }
 
 export const FeatureProvider = ({ children }: Props) => {
-  const [isTelegramShareEnabled, setIsTelegramShareEnabled] = useState(false);
+  const [featureFlagIs, setFeatureFlagIs] = useState(false);
   useEffect(() => {
-    checkFeatureFlags((flagIs) => setIsTelegramShareEnabled(flagIs));
+    checkFeatureFlags().then((flagIs) => setFeatureFlagIs(flagIs));
   }, []);
-  return (
-    <FeatureContext.Provider
-      value={{
-        isTelegramShareEnabled,
-      }}
-    >
-      {children}
-    </FeatureContext.Provider>
-  );
+  const contextValue = {
+    featureFlagIs,
+  };
+  return <FeatureContext.Provider value={contextValue}>{children}</FeatureContext.Provider>;
 };
