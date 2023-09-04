@@ -21,7 +21,7 @@ export const store = configureStore({
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware()
-      .prepend(favoritesListenerMiddleware.middleware, consoleListenerMiddleware.middleware)
+      // .prepend(favoritesListenerMiddleware.middleware, consoleListenerMiddleware.middleware)
       .concat(rickandmortyApi.middleware),
 });
 

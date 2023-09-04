@@ -7,13 +7,13 @@ import {
   showCharacter,
   showCharacters,
   showHelpsMessage,
+  showNotFound,
   showSearchResult,
   showStartMessage,
   signInConsole,
   signUpConsole,
 } from '../../console';
-import { msgCommandNotFound } from '../../console';
-import { saveInputConsoleCommands } from '../../features';
+import { setInputConsoleArguments } from '../../features';
 import type { AppDispatch, RootState } from '../../store';
 
 export const consoleListenerMiddleware = createListenerMiddleware();
@@ -23,10 +23,9 @@ type AppStartListening = TypedStartListening<RootState, AppDispatch>;
 const startAppListening = consoleListenerMiddleware.startListening as AppStartListening;
 
 startAppListening({
-  actionCreator: saveInputConsoleCommands,
+  actionCreator: setInputConsoleArguments,
   effect: async (action) => {
     const { command, params } = action.payload;
-    /* eslint-disable no-console */
     switch (command) {
       case '/start':
         showStartMessage();
@@ -56,8 +55,7 @@ startAppListening({
         removeFavoritesFromConsole(params);
         break;
       default:
-        console.log(msgCommandNotFound);
+        showNotFound();
     }
-    /* eslint-enable no-console */
   },
 });

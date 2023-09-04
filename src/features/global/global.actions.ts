@@ -17,8 +17,8 @@ export const clearAlertParams = createAction('global/removeAlert', () => {
     },
   };
 });
-export const saveInputConsoleCommands = createAction(
-  'global/saveInputConsoleCommands',
+export const setInputConsoleArguments = createAction(
+  'global/setInputConsoleArguments',
   (command: string, params?: string[]) => {
     return {
       payload: {
