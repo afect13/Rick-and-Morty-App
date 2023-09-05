@@ -1,7 +1,7 @@
 import { createListenerMiddleware } from '@reduxjs/toolkit';
 import type { TypedStartListening } from '@reduxjs/toolkit';
 
-import { addToFavorites, clearAlertParams, removeFromFavorites, setAlertParams } from '..';
+import { addToFavorites, clearAlertParams, removeFromFavorites, setAlertParams } from '../../features';
 import type { AppDispatch, RootState } from '../../store';
 
 export const favoritesListenerMiddleware = createListenerMiddleware();

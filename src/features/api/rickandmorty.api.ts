@@ -31,5 +31,14 @@ export const rickandmortyApi = createApi({
   }),
 });
 
-export const { useGetCharactersQuery, useGetCharacterQuery, useSearchCharacterQuery, useGetFavoritesCharactersQuery } =
-  rickandmortyApi;
+export const {
+  useGetCharactersQuery,
+  useGetCharacterQuery,
+  useSearchCharacterQuery,
+  useGetFavoritesCharactersQuery,
+  useLazyGetCharactersQuery,
+  useLazySearchCharacterQuery,
+  useLazyGetCharacterQuery,
+} = rickandmortyApi;
+
+export const { endpoints } = rickandmortyApi;

@@ -1,6 +1,6 @@
 import { createAction } from '@reduxjs/toolkit';
 
-export const setAlertParams = createAction('favorites/addedAlert', (message: string, eventType: string) => {
+export const setAlertParams = createAction('global/addedAlert', (message: string, eventType: string) => {
   return {
     payload: {
       eventType,
@@ -9,7 +9,7 @@ export const setAlertParams = createAction('favorites/addedAlert', (message: str
   };
 });
 
-export const clearAlertParams = createAction('favorites/removeAlert', () => {
+export const clearAlertParams = createAction('global/removeAlert', () => {
   return {
     payload: {
       eventType: null,
@@ -17,3 +17,14 @@ export const clearAlertParams = createAction('favorites/removeAlert', () => {
     },
   };
 });
+export const setInputConsoleArguments = createAction(
+  'global/setInputConsoleArguments',
+  (command: string, params?: string[]) => {
+    return {
+      payload: {
+        command,
+        params,
+      },
+    };
+  }
+);
