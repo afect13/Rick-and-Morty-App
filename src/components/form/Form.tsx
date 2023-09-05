@@ -1,10 +1,11 @@
 import { yupResolver } from '@hookform/resolvers/yup';
+import { useEffect } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useSelector } from 'react-redux';
 import * as yup from 'yup';
 
 import { Button, LoadingIndicator } from '../../components';
-import { getIsLoadingAuth, signin, signup } from '../../features/';
+import { clearError, getErrorAuth, getIsLoadingAuth, signin, signup } from '../../features/';
 import { useAppDispatch } from '../../store';
 
 interface Props {
@@ -33,6 +34,7 @@ type FormData = yup.InferType<typeof schema>;
 export const Form = ({ inputType }: Props) => {
   const dispatch = useAppDispatch();
   const loading = useSelector(getIsLoadingAuth);
+  const authError = useSelector(getErrorAuth);
   const {
     register,
     handleSubmit,
@@ -50,6 +52,11 @@ export const Form = ({ inputType }: Props) => {
       dispatch(signin({ email, password }));
     }
   };
+  useEffect(() => {
+    return () => {
+      dispatch(clearError());
+    };
+  }, [dispatch]);
   return (
     <div className="mx-auto w-[400px]">
       <div className="w-full  bg-zinc-100 border border-zinc-100 p-8">
@@ -82,6 +89,7 @@ export const Form = ({ inputType }: Props) => {
             />
             <p className="text-sm text-red-600">{errors.password?.message}</p>
           </div>
+          <p className="text-lg text-center text-red-600">{authError}</p>
           <Button
             type={'submit'}
             withBorder={false}

@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-import { signin, signout, signup } from './auth.actions';
+import { clearError, signin, signout, signup } from './auth.actions';
 
 interface AuthState {
   isAuthenticated: boolean;
@@ -59,6 +59,9 @@ export const authSlice = createSlice({
       .addCase(signout.rejected, (state, action) => {
         state.isLoading = false;
         state.error = action.error.code;
+      })
+      .addCase(clearError, (state, action) => {
+        state.error = action.payload;
       });
   },
 });
