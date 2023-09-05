@@ -1,9 +1,9 @@
 import { ReactNode } from 'react';
 
-interface Props {
+type Props = {
   title?: string;
   children: ReactNode;
-}
+};
 
 export const PageContent = ({ title, children }: Props) => {
   return (

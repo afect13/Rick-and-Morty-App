@@ -2,9 +2,9 @@ import { ReactNode, useState } from 'react';
 
 import { ThemeContext } from '../../context';
 
-interface Props {
+type Props = {
   children: ReactNode;
-}
+};
 
 export const ThemeProvider = ({ children }: Props) => {
   const [isDark, setIsDark] = useState(true);

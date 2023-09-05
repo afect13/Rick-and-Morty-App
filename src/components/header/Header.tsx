@@ -4,9 +4,9 @@ import { ReactNode, useContext } from 'react';
 
 import { ThemeContext } from '../../context';
 
-interface Props {
+type Props = {
   children: ReactNode;
-}
+};
 
 export const Header = ({ children }: Props) => {
   const { isDark } = useContext(ThemeContext);

@@ -16,16 +16,15 @@ export const updateHistoryState = createAsyncThunk<string[], string>('history/up
 });
 
 export const addToHistory = createAsyncThunk<void, string, { state: RootState; dispatch: AppDispatch }>(
-  'history/added',
+  'history/add',
   async (link, { getState, dispatch }) => {
     const { auth, history } = getState();
     if (auth.email && auth.isAuthenticated && !history.history.includes(link)) {
-      dispatch(addedCurrentLink(link));
       const docRef = doc(database, auth.email, 'data');
       await updateDoc(docRef, {
         history: arrayUnion(link),
       });
-      dispatch(updateHistoryState(auth.email));
+      await dispatch(updateHistoryState(auth.email));
     }
   }
 );
@@ -35,12 +34,11 @@ export const removeFromHistory = createAsyncThunk<void, string, { state: RootSta
   async (link, { getState, dispatch }) => {
     const { auth } = getState();
     if (auth.email && auth.isAuthenticated) {
-      dispatch(addedCurrentLink(link));
       const docRef = doc(database, auth.email, 'data');
       await updateDoc(docRef, {
         history: arrayRemove(link),
       });
-      dispatch(updateHistoryState(auth.email));
+      await dispatch(updateHistoryState(auth.email));
     }
   }
 );
@@ -54,18 +52,10 @@ export const removeAllFromHistory = createAsyncThunk<void, void, { state: RootSt
       await updateDoc(docRef, {
         history: [],
       });
-      dispatch(updateHistoryState(auth.email));
+      await dispatch(updateHistoryState(auth.email));
     }
   }
 );
-
-export const addedCurrentLink = createAction('history/targetLink', (target: string) => {
-  return {
-    payload: {
-      target,
-    },
-  };
-});
 
 export const resetHisoryStore = createAction('history/resetStore', () => {
   return {

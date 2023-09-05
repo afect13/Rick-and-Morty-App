@@ -6,10 +6,10 @@ import { resetFavoritesStore, resetHisoryStore, updateFavoritesState, updateHist
 import { auth, database } from '../../firebase';
 import { AppDispatch } from '../../store';
 
-interface Auth {
+type Auth = {
   email: string;
   password: string;
-}
+};
 
 export const signup = createAsyncThunk<string, Auth, { dispatch: AppDispatch }>(
   'auth/signup',

@@ -1,30 +1,26 @@
+import { useState } from 'react';
 import { useSelector } from 'react-redux';
 
 import { Button, FavoritesItem, Loading, LoadingIndicator, NoResultsMessage, PageContent } from '../../components';
-import {
-  getFavorites,
-  getIsLoadingByIdFavorites,
-  getIsLoadingGlobalFavorites,
-  removeAllFromFavorites,
-  useGetFavoritesCharactersQuery,
-} from '../../features';
+import { getFavorites, removeAllFromFavorites, useGetFavoritesCharactersQuery } from '../../features';
 import { useAppDispatch } from '../../store';
 
 export const Favorites = () => {
+  const [isLoading, setIsLoading] = useState(false);
   const dispatch = useAppDispatch();
   const favorites = useSelector(getFavorites);
-  const loadingById = useSelector(getIsLoadingByIdFavorites);
-  const loadingGlobal = useSelector(getIsLoadingGlobalFavorites);
   const favoritesNotEmpty = favorites.length > 0;
   const {
     data: characters,
-    isLoading,
+    isLoading: isLoadingCharacters,
     isSuccess,
   } = useGetFavoritesCharactersQuery(favorites, {
     skip: !favoritesNotEmpty,
   });
   const handleRemoveAll = async () => {
-    dispatch(removeAllFromFavorites());
+    setIsLoading(true);
+    await dispatch(removeAllFromFavorites());
+    setIsLoading(false);
   };
   const favoritesList = (
     <>
@@ -40,7 +36,7 @@ export const Favorites = () => {
           bgColor={'bg-red-600'}
           withBorder={false}
         >
-          {loadingGlobal && !loadingById && <LoadingIndicator />}
+          {isLoading && <LoadingIndicator />}
         </Button>
       </div>
     </>
@@ -48,7 +44,7 @@ export const Favorites = () => {
   return (
     <PageContent title={'Favorites'}>
       {favoritesNotEmpty ? (
-        isLoading ? (
+        isLoadingCharacters ? (
           <Loading />
         ) : (
           favoritesList

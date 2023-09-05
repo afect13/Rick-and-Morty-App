@@ -4,9 +4,9 @@ import { ReactNode, useContext } from 'react';
 import { Alerts } from '../../components';
 import { ThemeContext } from '../../context';
 
-interface Props {
+type Props = {
   children: ReactNode;
-}
+};
 
 export const Layout = ({ children }: Props) => {
   const { isDark } = useContext(ThemeContext);

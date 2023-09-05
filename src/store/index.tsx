@@ -1,9 +1,9 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { useDispatch } from 'react-redux';
 
-import { consoleListenerMiddleware } from '../console/listener/consoleListener';
 import {
   authSlice,
+  consoleListenerMiddleware,
   favoritesListenerMiddleware,
   favoritesSlice,
   globalSlice,

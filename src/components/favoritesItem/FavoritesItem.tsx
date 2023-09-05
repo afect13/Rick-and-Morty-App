@@ -1,21 +1,23 @@
-import { useSelector } from 'react-redux';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
-import { Button, LoadingIndicator } from '..';
-import { getIsLoadingByIdFavorites, removeFromFavorites } from '../../features';
+import { Button, LoadingIndicator } from '../../components';
+import { removeFromFavorites } from '../../features';
 import { useAppDispatch } from '../../store';
 
-interface Props {
+type Props = {
   name: string;
   id: number;
   image: string;
-}
+};
 
 export const FavoritesItem = ({ id, image, name }: Props) => {
+  const [isLoading, setIsLoading] = useState(false);
   const dispatch = useAppDispatch();
-  const loadingById = useSelector(getIsLoadingByIdFavorites);
   const handleRemoveFavorite = async () => {
-    dispatch(removeFromFavorites(id));
+    setIsLoading(true);
+    await dispatch(removeFromFavorites(id));
+    setIsLoading(false);
   };
   return (
     <li className="flex justify-between mx-auto  bg-zinc-200 rounded-lg p-2.5 w-[500px] mb-8">
@@ -39,7 +41,7 @@ export const FavoritesItem = ({ id, image, name }: Props) => {
           bgColor="bg-red-600"
           withBorder={true}
         >
-          {loadingById === id && <LoadingIndicator />}
+          {isLoading && <LoadingIndicator />}
         </Button>
       </div>
     </li>

@@ -1,13 +1,14 @@
 import classNames from 'classnames';
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
 import { Button, LoadingIndicator } from '../../components';
 import { FeatureContext } from '../../context';
-import { getFavorites, getIsLoadingByIdFavorites, toggleFavorites } from '../../features';
+import { getFavorites, getIsAuthenticated, toggleFavorites } from '../../features';
 import { useAppDispatch } from '../../store';
 
-interface Props {
+type Props = {
   image: string;
   name: string;
   status: string;
@@ -15,16 +16,25 @@ interface Props {
   location: { name: string };
   gender: string;
   id: number;
-}
+};
 
 export const CharacterProfile = ({ image, name, status, species, location, gender, id }: Props) => {
+  const [isLoading, setIsLoading] = useState(false);
   const dispatch = useAppDispatch();
+  const isAuth = useSelector(getIsAuthenticated);
+  const navigate = useNavigate();
   const favorites = useSelector(getFavorites);
   const { featureFlagIs } = useContext(FeatureContext);
-  const loadingById = useSelector(getIsLoadingByIdFavorites);
+
   const isFavorite = favorites.includes(id);
-  const handleToggleFavorite = () => {
-    dispatch(toggleFavorites(id));
+  const handleToggleFavoriteIfAuth = async () => {
+    if (!isAuth) {
+      navigate('/signin');
+    } else {
+      setIsLoading(true);
+      await dispatch(toggleFavorites(id));
+      setIsLoading(false);
+    }
   };
 
   const handleShareToTelegram = () => {
@@ -59,14 +69,14 @@ export const CharacterProfile = ({ image, name, status, species, location, gende
         </div>
         <div className="flex flex-start gap-1 w-full my-1 mx-2">
           <Button
-            onClick={handleToggleFavorite}
+            onClick={handleToggleFavoriteIfAuth}
             type={'button'}
             withBorder={false}
             widthParms={'w-[215px]'}
             bgColor={isFavorite ? 'bg-red-700' : 'bg-green-700'}
             name={isFavorite ? 'Remove From Favorites' : 'Add To Favorites'}
           >
-            {loadingById === id && <LoadingIndicator />}
+            {isLoading && <LoadingIndicator />}
           </Button>
           {featureFlagIs && (
             <Button

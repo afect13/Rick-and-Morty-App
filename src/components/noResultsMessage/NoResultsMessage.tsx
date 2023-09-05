@@ -1,8 +1,8 @@
 import rickandmorty from '../../assets/image/rick-and-mory.png';
 
-interface Props {
+type Props = {
   message: string;
-}
+};
 export const NoResultsMessage = ({ message }: Props) => {
   return (
     <div className="flex flex-col w-full items-center gap-10 mt-10">

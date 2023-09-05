@@ -2,12 +2,12 @@ import { createSlice } from '@reduxjs/toolkit';
 
 import { clearError, signin, signout, signup } from './auth.actions';
 
-interface AuthState {
+type AuthState = {
   isAuthenticated: boolean;
   email: string | null;
   isLoading: boolean;
   error: string | undefined;
-}
+};
 const initialState: AuthState = {
   email: null,
   isAuthenticated: false,
