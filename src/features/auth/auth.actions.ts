@@ -1,4 +1,4 @@
-import { createAsyncThunk } from '@reduxjs/toolkit';
+import { createAction, createAsyncThunk } from '@reduxjs/toolkit';
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from 'firebase/auth';
 import { doc, setDoc } from 'firebase/firestore/lite';
 
@@ -55,4 +55,10 @@ export const initInFirebase = createAsyncThunk('auth/init', async (email: string
     favorites: [],
     history: [],
   });
+});
+
+export const clearError = createAction('auth/clearError', () => {
+  return {
+    payload: undefined,
+  };
 });

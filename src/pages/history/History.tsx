@@ -1,6 +1,6 @@
 import { useSelector } from 'react-redux';
 
-import { Button, HistoryItem, LoadingIndicator, PageContent } from '../../components';
+import { Button, HistoryItem, LoadingIndicator, NoResultsMessage, PageContent } from '../../components';
 import { getHistory, getIsLoadingByLinkHistory, getIsLoadingGlobalHistory, removeAllFromHistory } from '../../features';
 import { useAppDispatch } from '../../store';
 
@@ -37,7 +37,7 @@ export const History = () => {
           </div>
         </>
       ) : (
-        <div>History not found</div>
+        <NoResultsMessage message={'History Not Found'} />
       )}
     </PageContent>
   );

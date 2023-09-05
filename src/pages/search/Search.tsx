@@ -1,6 +1,6 @@
 import { useSearchParams } from 'react-router-dom';
 
-import { CharacterCard, Loading, PageContent } from '../../components';
+import { CharacterCard, Loading, NoResultsMessage, PageContent } from '../../components';
 import { useSearchCharacterQuery } from '../../features';
 import { useAddToHistory } from '../../hooks/addToHistory/addToHistory';
 
@@ -12,11 +12,7 @@ export const Search = () => {
   return (
     <PageContent title={'Search Result'}>
       {isLoading && <Loading />}
-      {isError && (
-        <div className="flex justify-center w-full">
-          <h2 className="text-center p-32 text-red-500 text-3xl">Character not Found</h2>
-        </div>
-      )}
+      {isError && <NoResultsMessage message={'No results found'} />}
       {isSuccess && character.map((c) => <CharacterCard key={c.id} id={c.id} name={c.name} image={c.image} />)}
     </PageContent>
   );

@@ -1,7 +1,6 @@
 import { useSelector } from 'react-redux';
 
-import { Button, FavoritesItem, LoadingIndicator, PageContent } from '../../components';
-import { Loading } from '../../components';
+import { Button, FavoritesItem, Loading, LoadingIndicator, NoResultsMessage, PageContent } from '../../components';
 import {
   getFavorites,
   getIsLoadingByIdFavorites,
@@ -48,7 +47,15 @@ export const Favorites = () => {
   );
   return (
     <PageContent title={'Favorites'}>
-      {favoritesNotEmpty ? isLoading ? <Loading /> : favoritesList : <div>favorites not found</div>}
+      {favoritesNotEmpty ? (
+        isLoading ? (
+          <Loading />
+        ) : (
+          favoritesList
+        )
+      ) : (
+        <NoResultsMessage message={'Favorites Not Found'} />
+      )}
     </PageContent>
   );
 };
