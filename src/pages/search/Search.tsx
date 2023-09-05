@@ -2,7 +2,7 @@ import { useSearchParams } from 'react-router-dom';
 
 import { CharacterCard, Loading, NoResultsMessage, PageContent } from '../../components';
 import { useSearchCharacterQuery } from '../../features';
-import { useAddToHistory } from '../../hooks/addToHistory/addToHistory';
+import { useAddToHistory } from '../../hooks';
 
 export const Search = () => {
   const [searchParams] = useSearchParams();

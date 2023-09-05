@@ -12,7 +12,6 @@ export const SearchBar = () => {
   const [isFocused, setIsFocused] = useState(false);
   const navigate = useNavigate();
   const debouncedValue = useDebounce(search, 500);
-
   const {
     data: characters,
     isLoading,
@@ -28,13 +27,14 @@ export const SearchBar = () => {
     event.preventDefault();
     const formattedSearch = search.replace(/\s+/g, '+');
     setIsFocused(false);
-    navigate(`/search?q=${formattedSearch}`);
+    if (formattedSearch) {
+      navigate(`/search?q=${formattedSearch}`);
+    }
   };
   useEffect(() => {
     const handler = setTimeout(() => setDropDown(debouncedValue.length > 2 && isFocused), 200);
     return () => clearTimeout(handler);
   }, [characters, debouncedValue, isFocused]);
-
   return (
     <form onSubmit={handleSubmit} className="w-full">
       <label htmlFor="search" className="mb-2 text-sm font-medium text-zinc-900 sr-only">

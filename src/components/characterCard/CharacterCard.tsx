@@ -1,11 +1,11 @@
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
-interface Props {
+type Props = {
   id: number;
   name: string;
   image: string;
-}
+};
 export const CharacterCard = ({ id, name, image }: Props) => {
   return (
     <Link

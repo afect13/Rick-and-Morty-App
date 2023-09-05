@@ -1,13 +1,13 @@
 import { createContext } from 'react';
 
-export interface ThemeContext {
+export type ThemeContext = {
   isDark: boolean;
   toggleTheam?: () => void;
-}
+};
 
-export interface FeatureContext {
+export type FeatureContext = {
   featureFlagIs: boolean;
-}
+};
 
 export const ThemeContext = createContext<ThemeContext>({ isDark: true });
 

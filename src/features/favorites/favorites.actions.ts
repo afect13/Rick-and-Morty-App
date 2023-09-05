@@ -20,12 +20,11 @@ export const addToFavorites = createAsyncThunk<number, number, { state: RootStat
   async (id, { getState, dispatch }) => {
     const { auth } = getState();
     if (auth.email && auth.isAuthenticated) {
-      dispatch(addedCurrentId(id));
       const docRef = doc(database, auth.email, 'data');
       await updateDoc(docRef, {
         favorites: arrayUnion(id),
       });
-      dispatch(updateFavoritesState(auth.email));
+      await dispatch(updateFavoritesState(auth.email));
     }
     return id;
   }
@@ -36,12 +35,11 @@ export const removeFromFavorites = createAsyncThunk<number, number, { state: Roo
   async (id, { getState, dispatch }) => {
     const { auth } = getState();
     if (auth.email && auth.isAuthenticated) {
-      dispatch(addedCurrentId(id));
       const docRef = doc(database, auth.email, 'data');
       await updateDoc(docRef, {
         favorites: arrayRemove(id),
       });
-      dispatch(updateFavoritesState(auth.email));
+      await dispatch(updateFavoritesState(auth.email));
     }
     return id;
   }
@@ -56,7 +54,7 @@ export const removeAllFromFavorites = createAsyncThunk<void, void, { state: Root
       await updateDoc(docRef, {
         favorites: [],
       });
-      dispatch(updateFavoritesState(auth.email));
+      await dispatch(updateFavoritesState(auth.email));
     }
   }
 );
@@ -66,21 +64,13 @@ export const toggleFavorites = createAsyncThunk<void, number, { state: RootState
   async (id, { getState, dispatch }) => {
     const { favorites, auth } = getState();
     if (favorites.favorites.includes(id) && auth.isAuthenticated) {
-      dispatch(removeFromFavorites(id));
+      await dispatch(removeFromFavorites(id));
     }
     if (!favorites.favorites.includes(id) && auth.isAuthenticated) {
-      dispatch(addToFavorites(id));
+      await dispatch(addToFavorites(id));
     }
   }
 );
-
-export const addedCurrentId = createAction('favorites/targetId', (target: number) => {
-  return {
-    payload: {
-      target,
-    },
-  };
-});
 
 export const resetFavoritesStore = createAction('favorites/resetStore', () => {
   return {

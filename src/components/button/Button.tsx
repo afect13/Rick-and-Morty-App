@@ -4,7 +4,7 @@ import { ReactNode, useContext } from 'react';
 
 import { ThemeContext } from '../../context';
 
-interface Props {
+type Props = {
   name?: string;
   bgColor?: string | undefined;
   withBorder: boolean;
@@ -14,7 +14,7 @@ interface Props {
   type: 'button' | 'submit';
   invertColor?: boolean;
   onClick?: React.MouseEventHandler<HTMLButtonElement>;
-}
+};
 
 export const Button = ({
   name,

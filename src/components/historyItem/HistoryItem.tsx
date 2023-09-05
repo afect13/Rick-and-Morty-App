@@ -1,18 +1,20 @@
-import { useSelector } from 'react-redux';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
-import { Button, LoadingIndicator } from '..';
-import { getIsLoadingByLinkHistory, removeFromHistory } from '../../features';
+import { Button, LoadingIndicator } from '../../components';
+import { removeFromHistory } from '../../features';
 import { useAppDispatch } from '../../store';
 
-interface Props {
+type Props = {
   link: string;
-}
+};
 export const HistoryItem = ({ link }: Props) => {
+  const [isLoading, setIsLoading] = useState(false);
   const dispatch = useAppDispatch();
-  const loadingByLink = useSelector(getIsLoadingByLinkHistory);
-  const handleRemoveHistory = () => {
-    dispatch(removeFromHistory(link));
+  const handleRemoveHistory = async () => {
+    setIsLoading(true);
+    await dispatch(removeFromHistory(link));
+    setIsLoading(false);
   };
   return (
     <li className="flex justify-between mx-auto  bg-zinc-200 rounded-lg p-2.5 w-[500px] mb-8">
@@ -33,7 +35,7 @@ export const HistoryItem = ({ link }: Props) => {
           bgColor="bg-red-600"
           withBorder={true}
         >
-          {loadingByLink === link && <LoadingIndicator />}
+          {isLoading && <LoadingIndicator />}
         </Button>
       </div>
     </li>

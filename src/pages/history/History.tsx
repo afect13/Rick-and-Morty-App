@@ -1,18 +1,20 @@
+import { useState } from 'react';
 import { useSelector } from 'react-redux';
 
 import { Button, HistoryItem, LoadingIndicator, NoResultsMessage, PageContent } from '../../components';
-import { getHistory, getIsLoadingByLinkHistory, getIsLoadingGlobalHistory, removeAllFromHistory } from '../../features';
+import { getHistory, removeAllFromHistory } from '../../features';
 import { useAppDispatch } from '../../store';
 
 export const History = () => {
   const dispatch = useAppDispatch();
   const history = useSelector(getHistory);
 
-  const loadingByLink = useSelector(getIsLoadingByLinkHistory);
-  const loadingGlobal = useSelector(getIsLoadingGlobalHistory);
+  const [isLoading, setIsLoading] = useState(false);
   const historyNotEmpty = history.length > 0;
   const handleRemoveAll = async () => {
-    dispatch(removeAllFromHistory());
+    setIsLoading(true);
+    await dispatch(removeAllFromHistory());
+    setIsLoading(false);
   };
   return (
     <PageContent title={'History'}>
@@ -32,7 +34,7 @@ export const History = () => {
               bgColor={'bg-red-600'}
               withBorder={false}
             >
-              {loadingGlobal && !loadingByLink && <LoadingIndicator />}
+              {isLoading && <LoadingIndicator />}
             </Button>
           </div>
         </>

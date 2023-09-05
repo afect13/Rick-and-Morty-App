@@ -3,12 +3,12 @@ import { useNavigate } from 'react-router-dom';
 import { ReactComponent as LoadingSvg } from '../../assets/svg/loading.svg';
 import { Character } from '../../models';
 
-interface Props {
+type Props = {
   isLoading: boolean;
   isError: boolean;
   isSuccess: boolean;
   characters: Character[] | undefined;
-}
+};
 
 export const Suggestions = ({ isLoading, isError, isSuccess, characters }: Props) => {
   const navigate = useNavigate();

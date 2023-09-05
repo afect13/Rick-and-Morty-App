@@ -2,9 +2,9 @@ import { createSlice } from '@reduxjs/toolkit';
 
 import { clearAlertParams, setAlertParams } from '../../features';
 
-interface GlobalState {
+type GlobalState = {
   alert: { eventType: string | null; message: string | null };
-}
+};
 const initialState: GlobalState = {
   alert: { eventType: null, message: null },
 };

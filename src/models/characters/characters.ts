@@ -1,16 +1,16 @@
-export interface Response<T> {
+export type Response<T> = {
   info: Page;
   results: T[];
-}
+};
 
-export interface Page {
+export type Page = {
   count: number;
   pages: number;
   next: string | null;
   prev: string | null;
-}
+};
 
-export interface Character {
+export type Character = {
   id: number;
   name: string;
   status: string;
@@ -23,14 +23,14 @@ export interface Character {
   episode: string[];
   url: string;
   created: string;
-}
+};
 
-export interface Origin {
+export type Origin = {
   name: string;
   url: string;
-}
+};
 
-export interface Location {
+export type Location = {
   name: string;
   url: string;
-}
+};

@@ -1,9 +1,9 @@
-import { schema } from '../../components';
+import { schema } from '../../utils';
 
-interface ParsedCommand {
+type ParsedCommand = {
   command: string | undefined;
   params: string[] | undefined;
-}
+};
 
 export const parseCommandString = (commandSting: string): ParsedCommand => {
   const commandRegex = /\/([^ ]*)/g;
