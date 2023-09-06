@@ -53,7 +53,7 @@
 - Feature Flags. Реализовать фичу “Поделиться в телеграм”, закрытую под фича флагом.
   
   - Если флаг с этой фичей включен, то у карточки единицы информации должна появиться кнопка “Поделиться” : [CharacterProfile](https://github.com/afect13/aston-react-project/blob/main/src/components/characterProfile/CharacterProfile.tsx).
-  - Флаг должен присылаться с локального сервера.[server](https://github.com/afect13/aston-react-project/tree/main/server).
+  - Флаг должен присылаться с локального сервера: [server](https://github.com/afect13/aston-react-project/tree/main/server).
   - Флаг положить в react context, забрать из контекста в необходимом месте приложения: [FeatureProvider](https://github.com/afect13/aston-react-project/blob/main/src/components/featureProvider/FeatureProvider.tsx).
 
 - **Project Console API**.
@@ -95,3 +95,9 @@ command('/signin [exampl@ex.ru] [123456789]')
   - Зарегистрироваться /signup [login] [password].
   - Добавить персонажа в избранное /add [id].
   - Удалить персонажа из избранного /remove [id].
+
+## **Дополнительно**
+
+- В проекте использовалась библиотека **Tailwind CSS** для стилизации компонентов.
+- Для одновременного запуска клиентской и серверной частей проекта, использовалась библиотека **Concurrently**.
+- Для управления формами и валидации использовались библиотеки **React Hook Form** и **Yup**.
