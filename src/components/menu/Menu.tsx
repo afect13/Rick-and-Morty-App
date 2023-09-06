@@ -15,7 +15,7 @@ import { useAppDispatch } from '../../store';
 export const Menu = () => {
   const dispatch = useAppDispatch();
   const isAuth = useSelector(getIsAuthenticated);
-  const { isDark, toggleTheam } = useContext(ThemeContext);
+  const { isDark, setIsDark } = useContext(ThemeContext);
   const iconClass = 'fill-zinc-200 hover:fill-zinc-300';
   const theamIcon = isDark ? <Sun className={iconClass} /> : <Moon className={iconClass} />;
   const handleSingout = () => {
@@ -38,7 +38,7 @@ export const Menu = () => {
         })}
       >
         <div className="flex gap-4 px-4 items-center ">
-          <Button onClick={toggleTheam} type={'button'} withBorder={false} invertColor={true}>
+          <Button onClick={() => setIsDark(!isDark)} type={'button'} withBorder={false} invertColor={true}>
             {theamIcon}
           </Button>
           {isAuth ? (

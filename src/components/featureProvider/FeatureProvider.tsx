@@ -1,19 +1,20 @@
-import { ReactNode, useEffect, useState } from 'react';
+import { ReactNode, useMemo } from 'react';
 
 import { FeatureContext } from '../../context';
-import { checkFeatureFlags } from '../../utils';
+import { useGetFeatureFlagQuery } from '../../features';
 
 type Props = {
   children: ReactNode;
 };
 
 export const FeatureProvider = ({ children }: Props) => {
-  const [featureFlagIs, setFeatureFlagIs] = useState(false);
-  useEffect(() => {
-    checkFeatureFlags().then((flagIs) => setFeatureFlagIs(flagIs));
-  }, []);
-  const contextValue = {
-    featureFlagIs,
-  };
+  const { data } = useGetFeatureFlagQuery();
+  const contextValue = useMemo(() => {
+    if (data) {
+      return data;
+    }
+    return { isTelegramShareEnabled: false };
+  }, [data]);
+
   return <FeatureContext.Provider value={contextValue}>{children}</FeatureContext.Provider>;
 };

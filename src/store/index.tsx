@@ -6,6 +6,7 @@ import {
   consoleListenerMiddleware,
   favoritesListenerMiddleware,
   favoritesSlice,
+  featureFlagApi,
   globalSlice,
   historySlice,
   rickandmortyApi,
@@ -18,11 +19,13 @@ export const store = configureStore({
     history: historySlice.reducer,
     global: globalSlice.reducer,
     [rickandmortyApi.reducerPath]: rickandmortyApi.reducer,
+    [featureFlagApi.reducerPath]: featureFlagApi.reducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware()
       .prepend(favoritesListenerMiddleware.middleware, consoleListenerMiddleware.middleware)
-      .concat(rickandmortyApi.middleware),
+      .concat(rickandmortyApi.middleware)
+      .concat(featureFlagApi.middleware),
 });
 
 export type RootState = ReturnType<typeof store.getState>;

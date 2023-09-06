@@ -3,8 +3,7 @@ import { ErrorBoundary } from 'react-error-boundary';
 import { createBrowserRouter } from 'react-router-dom';
 
 import App from './App';
-import { Loading } from './components';
-import { ErrorFallback } from './components';
+import { AuthRedirect, ErrorFallback, Loading } from './components';
 import { Main } from './pages';
 
 const Character = lazy(() => import('./pages/').then(({ Character }) => ({ default: Character })));
@@ -44,7 +43,9 @@ const router = createBrowserRouter([
         path: '/favorites',
         element: (
           <ErrorBoundary fallback={<ErrorFallback />}>
-            <Favorites />
+            <AuthRedirect forAuth={true}>
+              <Favorites />
+            </AuthRedirect>
           </ErrorBoundary>
         ),
       },
@@ -52,7 +53,9 @@ const router = createBrowserRouter([
         path: '/history',
         element: (
           <ErrorBoundary fallback={<ErrorFallback />}>
-            <History />
+            <AuthRedirect forAuth={true}>
+              <History />
+            </AuthRedirect>
           </ErrorBoundary>
         ),
       },
@@ -68,7 +71,9 @@ const router = createBrowserRouter([
         path: '/signin',
         element: (
           <ErrorBoundary fallback={<ErrorFallback />}>
-            <Signin />
+            <AuthRedirect forAuth={false}>
+              <Signin />
+            </AuthRedirect>
           </ErrorBoundary>
         ),
       },
@@ -76,7 +81,9 @@ const router = createBrowserRouter([
         path: '/signup',
         element: (
           <ErrorBoundary fallback={<ErrorFallback />}>
-            <Signup />
+            <AuthRedirect forAuth={false}>
+              <Signup />
+            </AuthRedirect>
           </ErrorBoundary>
         ),
       },

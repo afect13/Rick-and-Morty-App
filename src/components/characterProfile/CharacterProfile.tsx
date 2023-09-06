@@ -24,17 +24,13 @@ export const CharacterProfile = ({ image, name, status, species, location, gende
   const isAuth = useSelector(getIsAuthenticated);
   const navigate = useNavigate();
   const favorites = useSelector(getFavorites);
-  const { featureFlagIs } = useContext(FeatureContext);
+  const { isTelegramShareEnabled } = useContext(FeatureContext);
 
   const isFavorite = favorites.includes(id);
-  const handleToggleFavoriteIfAuth = async () => {
-    if (!isAuth) {
-      navigate('/signin');
-    } else {
-      setIsLoading(true);
-      await dispatch(toggleFavorites(id));
-      setIsLoading(false);
-    }
+  const handleToggleFavorite = async () => {
+    setIsLoading(true);
+    await dispatch(toggleFavorites(id));
+    setIsLoading(false);
   };
 
   const handleShareToTelegram = () => {
@@ -69,7 +65,7 @@ export const CharacterProfile = ({ image, name, status, species, location, gende
         </div>
         <div className="flex flex-start gap-1 w-full my-1 mx-2">
           <Button
-            onClick={handleToggleFavoriteIfAuth}
+            onClick={!isAuth ? () => navigate('/signin') : handleToggleFavorite}
             type={'button'}
             withBorder={false}
             widthParms={'w-[215px]'}
@@ -78,7 +74,7 @@ export const CharacterProfile = ({ image, name, status, species, location, gende
           >
             {isLoading && <LoadingIndicator />}
           </Button>
-          {featureFlagIs && (
+          {isTelegramShareEnabled && (
             <Button
               onClick={handleShareToTelegram}
               type={'button'}
