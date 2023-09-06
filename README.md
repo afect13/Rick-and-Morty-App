@@ -1,5 +1,21 @@
-# ASTON REACT PROJECT
-![workflow](https://github.com/afect13/aston-react-project/actions/workflows/github-actions.yml/badge.svg)
+![workflow](https://github.com/afect13/aston-react-project/actions/workflows/github-actions.yml/badge.svg) [![Netlify Status](https://api.netlify.com/api/v1/badges/43750681-7d08-49b6-8dfb-7cb52b480631/deploy-status)](https://app.netlify.com/sites/aston-react-project/deploys)
+# Rick and Morty
+>**Предметная область**: приложение о персонажах вселенной "Рик и Морти".
+>
+>**Использованное API**: в приложении используется [API Rick and Morty](https://rickandmortyapi.com/).
+>
+> **Основной функционал**:
+>
+>1. **Регистрация и авторизация:** пользователи могут создать учетную запись и авторизоваться в приложении.
+>2. **Поиск персонажей:** приложение предоставляет возможность быстрого поиска персонажей вселенной "Рик и Морти" по их именам.
+>3. **Избранные персонажи:** пользователи могут добавлять и персонажей в список избранных для удобного доступа к ним в будущем.
+>4. **История поиска:** приложение сохраняет историю поиска, что помогает пользователю найти персонажа, которого они искали ранее.
+>5. **Светлая и темная тема:** приложение предоставляет пользователям выбор между светлой и темной темами интерфейса.
+>6. **Поделиться персонажами:** приложение может предоставлять кнопку "Share Telegram" в карточке с персонажем.
+>7. **Console API:** приложение предоставляет пользователям возможность взаимодействия с приложением через консоль браузера. 
+
+
+### 	[DEMO](https://aston-react-project.netlify.app/)
 
 ## **1 уровень (необходимый минимум)**
 
@@ -30,7 +46,7 @@
 
 ## **2 уровень (необязательный)**
 
-- Использование TypeScript.
+- Использование TypeScript: [tsconfig.json](https://github.com/afect13/aston-react-project/blob/main/tsconfig.json).
 - Использование Firebase для учетных записей, избранного и истории поиска: [auth.actions](https://github.com/afect13/aston-react-project/blob/main/src/features/auth/auth.actions.ts),
 [favorites.actions](https://github.com/afect13/aston-react-project/blob/main/src/features/favorites/favorites.actions.ts), [history.actions](https://github.com/afect13/aston-react-project/blob/main/src/features/history/history.actions.ts).
 - Настроен CI/CD: [CI](https://github.com/afect13/aston-react-project/blob/main/src/features/history/history.actions.ts)/[CD](https://aston-react-project.netlify.app/)
