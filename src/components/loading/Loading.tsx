@@ -14,7 +14,7 @@ export const Loading = () => {
         ['bg-zinc-400']: !isDark,
       })}
     >
-      <LoadingSvg className="h-32 w-32 fill-green-800 " />
+      <LoadingSvg className="h-32 w-32" />
     </div>
   );
 };

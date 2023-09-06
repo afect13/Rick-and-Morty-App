@@ -16,6 +16,4 @@ app.get('/api/feature-flags', (req, res) => {
   res.json(featureFlags);
 });
 
-app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`);
-});
+app.listen(port);

@@ -8,6 +8,6 @@ type Props = {
 
 export const ThemeProvider = ({ children }: Props) => {
   const [isDark, setIsDark] = useState(true);
-  const memoTheme = useMemo(() => ({ isDark, setIsDark }), [isDark]);
-  return <ThemeContext.Provider value={memoTheme}>{children}</ThemeContext.Provider>;
+  const contexValue = useMemo(() => ({ isDark, setIsDark }), [isDark]);
+  return <ThemeContext.Provider value={contexValue}>{children}</ThemeContext.Provider>;
 };
