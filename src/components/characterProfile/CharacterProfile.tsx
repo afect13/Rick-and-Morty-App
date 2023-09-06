@@ -24,7 +24,7 @@ export const CharacterProfile = ({ image, name, status, species, location, gende
   const isAuth = useSelector(getIsAuthenticated);
   const navigate = useNavigate();
   const favorites = useSelector(getFavorites);
-  const { featureFlagIs } = useContext(FeatureContext);
+  const { isTelegramShareEnabled } = useContext(FeatureContext);
 
   const isFavorite = favorites.includes(id);
   const handleToggleFavoriteIfAuth = async () => {
@@ -78,7 +78,7 @@ export const CharacterProfile = ({ image, name, status, species, location, gende
           >
             {isLoading && <LoadingIndicator />}
           </Button>
-          {featureFlagIs && (
+          {isTelegramShareEnabled && (
             <Button
               onClick={handleShareToTelegram}
               type={'button'}

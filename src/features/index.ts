@@ -13,3 +13,4 @@ export * from './global/global.slice';
 export * from './global/global.actions';
 export * from './global/global.selectors';
 export * from './listeners/consoleListener';
+export * from './api/featureflag.api';
