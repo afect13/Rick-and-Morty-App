@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 
 import { Button, PageContent } from '../../components';
 
-export const NotFound = () => {
+const NotFound = () => {
   return (
     <PageContent>
       <div className="flex flex-col w-[500px] items-center gap-4 mx-auto mt-36">
@@ -17,3 +17,4 @@ export const NotFound = () => {
     </PageContent>
   );
 };
+export default NotFound;

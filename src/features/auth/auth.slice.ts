@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-import { clearError, signin, signout, signup } from './auth.actions';
+import { clearError, setAuthParams, signin, signout, signup } from './auth.actions';
 
 type AuthState = {
   isAuthenticated: boolean;
@@ -62,6 +62,10 @@ export const authSlice = createSlice({
       })
       .addCase(clearError, (state, action) => {
         state.error = action.payload;
+      })
+      .addCase(setAuthParams, (state, action) => {
+        state.isAuthenticated = action.payload.authIs;
+        state.email = action.payload.email;
       });
   },
 });

@@ -5,7 +5,7 @@ import { Button, FavoritesItem, Loading, LoadingIndicator, NoResultsMessage, Pag
 import { getFavorites, removeAllFromFavorites, useGetFavoritesCharactersQuery } from '../../features';
 import { useAppDispatch } from '../../store';
 
-export const Favorites = () => {
+const Favorites = () => {
   const [isLoading, setIsLoading] = useState(false);
   const dispatch = useAppDispatch();
   const favorites = useSelector(getFavorites);
@@ -55,3 +55,4 @@ export const Favorites = () => {
     </PageContent>
   );
 };
+export default Favorites;

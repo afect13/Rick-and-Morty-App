@@ -1,7 +1,7 @@
 import { CharacterCard, Loading, PageContent } from '../../components';
 import { useGetCharactersQuery } from '../../features';
 
-export const Main = () => {
+const Main = () => {
   const { data, isLoading, isSuccess, isError } = useGetCharactersQuery();
   return (
     <PageContent title={'Main'}>
@@ -11,3 +11,4 @@ export const Main = () => {
     </PageContent>
   );
 };
+export default Main;

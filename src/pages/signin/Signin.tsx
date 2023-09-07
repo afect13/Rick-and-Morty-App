@@ -1,9 +1,10 @@
 import { Form, PageContent } from '../../components';
 
-export const Signin = () => {
+const Signin = () => {
   return (
     <PageContent title={'Sign In'}>
       <Form inputType={'Signin'} />
     </PageContent>
   );
 };
+export default Signin;

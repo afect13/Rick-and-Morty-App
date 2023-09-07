@@ -1,5 +1,5 @@
 import { createAction, createAsyncThunk } from '@reduxjs/toolkit';
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from 'firebase/auth';
+import { createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword, signOut } from 'firebase/auth';
 import { doc, setDoc } from 'firebase/firestore/lite';
 
 import { resetFavoritesStore, resetHisoryStore, updateFavoritesState, updateHistoryState } from '../../features';
@@ -17,7 +17,7 @@ export const signup = createAsyncThunk<string, Auth, { dispatch: AppDispatch }>(
     const userCredential = await createUserWithEmailAndPassword(auth, email, password);
     const userEmail = userCredential.user.email;
     if (userEmail) {
-      dispatch(initInFirebase(email));
+      dispatch(initDateBase(email));
       return userEmail;
     } else {
       throw new Error('User email is undefined');
@@ -50,7 +50,20 @@ export const signout = createAsyncThunk<null, void, { dispatch: AppDispatch }>(
   }
 );
 
-export const initInFirebase = createAsyncThunk('auth/init', async (email: string) => {
+export const checkAuth = createAsyncThunk<void, void, { dispatch: AppDispatch }>(
+  'auth/checkAuth',
+  async (_, { dispatch }) => {
+    onAuthStateChanged(auth, (user) => {
+      if (user && user.email) {
+        dispatch(setAuthParams(user.email));
+        dispatch(updateHistoryState(user.email));
+        dispatch(updateFavoritesState(user.email));
+      }
+    });
+  }
+);
+
+export const initDateBase = createAsyncThunk('auth/init', async (email: string) => {
   await setDoc(doc(database, email, 'data'), {
     favorites: [],
     history: [],
@@ -60,5 +73,11 @@ export const initInFirebase = createAsyncThunk('auth/init', async (email: string
 export const clearError = createAction('auth/clearError', () => {
   return {
     payload: undefined,
+  };
+});
+
+export const setAuthParams = createAction('auth/setAuth', (email: string) => {
+  return {
+    payload: { authIs: true, email },
   };
 });

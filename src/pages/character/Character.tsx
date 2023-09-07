@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import { CharacterProfile, Loading, PageContent } from '../../components';
 import { useGetCharacterQuery } from '../../features';
 
-export const Character = () => {
+const Character = () => {
   const { charId } = useParams();
   const { data, isLoading, isSuccess, isError } = useGetCharacterQuery(Number(charId));
 
@@ -25,3 +25,4 @@ export const Character = () => {
     </PageContent>
   );
 };
+export default Character;

@@ -9,7 +9,7 @@ import { ReactComponent as Moon } from '../../assets/svg/moon.svg';
 import { ReactComponent as Sun } from '../../assets/svg/sun.svg';
 import { Button, SearchBar } from '../../components';
 import { ThemeContext } from '../../context';
-import { getIsAuthenticated, signout } from '../../features';
+import { clearError, getIsAuthenticated, signout } from '../../features';
 import { useAppDispatch } from '../../store';
 
 export const Menu = () => {
@@ -20,6 +20,9 @@ export const Menu = () => {
   const theamIcon = isDark ? <Sun className={iconClass} /> : <Moon className={iconClass} />;
   const handleSingout = () => {
     dispatch(signout());
+  };
+  const handleClearError = () => {
+    dispatch(clearError());
   };
   return (
     <div className="flex justify-between items-center h-10">
@@ -53,10 +56,10 @@ export const Menu = () => {
             </>
           ) : (
             <>
-              <Link to="/signin">
+              <Link onClick={() => handleClearError()} to="/signin">
                 <Button type={'button'} name={'Sign In'} withBorder={false} invertColor={true} />
               </Link>
-              <Link to="/signup">
+              <Link onClick={() => handleClearError()} to="/signup">
                 <Button type={'button'} name={'Sign Up'} withBorder={true} invertColor={true} />
               </Link>
             </>

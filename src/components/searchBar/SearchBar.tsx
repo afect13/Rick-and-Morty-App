@@ -1,15 +1,16 @@
-import { ChangeEvent, FormEvent, useEffect, useState } from 'react';
+import { ChangeEvent, FormEvent } from 'react';
+import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
 import { ReactComponent as Search } from '../../assets/svg/search.svg';
 import { Button, Suggestions } from '../../components';
-import { useSearchCharacterQuery } from '../../features';
+import { getSearch, setSearch, setSuggestions, useSearchCharacterQuery } from '../../features';
 import { useDebounce } from '../../hooks';
+import { useAppDispatch } from '../../store';
 
 export const SearchBar = () => {
-  const [search, setSearch] = useState('');
-  const [dropDown, setDropDown] = useState(false);
-  const [isFocused, setIsFocused] = useState(false);
+  const dispatch = useAppDispatch();
+  const search = useSelector(getSearch);
   const navigate = useNavigate();
   const debouncedValue = useDebounce(search, 500);
   const {
@@ -21,20 +22,16 @@ export const SearchBar = () => {
     skip: debouncedValue.length < 2,
   });
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
-    setSearch(event.target.value);
+    dispatch(setSearch(event.target.value));
   };
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const formattedSearch = search.replace(/\s+/g, '+');
-    setIsFocused(false);
+    dispatch(setSuggestions(false));
     if (formattedSearch) {
       navigate(`/search?q=${formattedSearch}`);
     }
   };
-  useEffect(() => {
-    const handler = setTimeout(() => setDropDown(debouncedValue.length > 2 && isFocused), 200);
-    return () => clearTimeout(handler);
-  }, [characters, debouncedValue, isFocused]);
   return (
     <form onSubmit={handleSubmit} className="w-full">
       <label htmlFor="search" className="mb-2 text-sm font-medium text-zinc-900 sr-only">
@@ -47,9 +44,8 @@ export const SearchBar = () => {
         <input
           value={search}
           onChange={handleChange}
-          onFocus={() => setIsFocused(true)}
-          onClick={() => setIsFocused(true)}
-          onBlur={() => setIsFocused(false)}
+          onFocus={() => dispatch(setSuggestions(true))}
+          onClick={() => dispatch(setSuggestions(true))}
           type="search"
           id="search"
           className="block w-full p-2 pl-10 text-sm text-zinc-900 border border-zinc-300 focus:outline-none focus:ring focus:ring-zinc-400  bg-zinc-50"
@@ -64,9 +60,7 @@ export const SearchBar = () => {
           bgColor={'bg-zinc-900'}
           invertColor={true}
         />
-        {dropDown && (
-          <Suggestions isLoading={isLoading} isSuccess={isSuccess} isError={isError} characters={characters} />
-        )}
+        <Suggestions isLoading={isLoading} isSuccess={isSuccess} isError={isError} characters={characters} />
       </div>
     </form>
   );

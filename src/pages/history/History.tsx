@@ -5,7 +5,7 @@ import { Button, HistoryItem, LoadingIndicator, NoResultsMessage, PageContent } 
 import { getHistory, removeAllFromHistory } from '../../features';
 import { useAppDispatch } from '../../store';
 
-export const History = () => {
+const History = () => {
   const dispatch = useAppDispatch();
   const history = useSelector(getHistory);
 
@@ -44,3 +44,4 @@ export const History = () => {
     </PageContent>
   );
 };
+export default History;

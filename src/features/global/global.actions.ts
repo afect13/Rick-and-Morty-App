@@ -28,3 +28,19 @@ export const setInputConsoleArguments = createAction(
     };
   }
 );
+export const setSearch = createAction('global/search', (search: string) => {
+  return {
+    payload: search,
+  };
+});
+export const suggestionsInFocus = createAction('global/suggestions', (isFocus: boolean) => {
+  return {
+    payload: isFocus,
+  };
+});
+
+export const setSuggestions = createAction('global/suggestions', (suggestionsIs: boolean) => {
+  return {
+    payload: suggestionsIs,
+  };
+});

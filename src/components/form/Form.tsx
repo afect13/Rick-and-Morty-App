@@ -1,11 +1,10 @@
 import { yupResolver } from '@hookform/resolvers/yup';
-import { useEffect } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useSelector } from 'react-redux';
 import * as yup from 'yup';
 
 import { Button, LoadingIndicator } from '../../components';
-import { clearError, getErrorAuth, getIsLoadingAuth, signin, signup } from '../../features/';
+import { getErrorAuth, getIsLoadingAuth, signin, signup } from '../../features/';
 import { useAppDispatch } from '../../store';
 import { schema } from '../../utils';
 
@@ -36,11 +35,6 @@ export const Form = ({ inputType }: Props) => {
       dispatch(signin({ email, password }));
     }
   };
-  useEffect(() => {
-    return () => {
-      dispatch(clearError());
-    };
-  }, [dispatch]);
   return (
     <div className="mx-auto w-[400px]">
       <div className="w-full  bg-zinc-100 border border-zinc-100 p-8">

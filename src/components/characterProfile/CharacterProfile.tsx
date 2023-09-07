@@ -1,12 +1,12 @@
 import classNames from 'classnames';
-import { useContext, useState } from 'react';
+import { useContext } from 'react';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
 import { Button, LoadingIndicator } from '../../components';
 import { FeatureContext } from '../../context';
-import { getFavorites, getIsAuthenticated, toggleFavorites } from '../../features';
-import { useAppDispatch } from '../../store';
+import { getIsAuthenticated } from '../../features';
+import { useToggleFavorite } from '../../hooks/';
 
 type Props = {
   image: string;
@@ -19,20 +19,10 @@ type Props = {
 };
 
 export const CharacterProfile = ({ image, name, status, species, location, gender, id }: Props) => {
-  const [isLoading, setIsLoading] = useState(false);
-  const dispatch = useAppDispatch();
+  const { isLoading, isFavorite, handleToggleFavorite } = useToggleFavorite(id);
   const isAuth = useSelector(getIsAuthenticated);
   const navigate = useNavigate();
-  const favorites = useSelector(getFavorites);
   const { isTelegramShareEnabled } = useContext(FeatureContext);
-
-  const isFavorite = favorites.includes(id);
-  const handleToggleFavorite = async () => {
-    setIsLoading(true);
-    await dispatch(toggleFavorites(id));
-    setIsLoading(false);
-  };
-
   const handleShareToTelegram = () => {
     const telegramUrl = `https://t.me/share/url?url=${window.location.href}&text=${name}`;
     window.open(telegramUrl, '_blank');
