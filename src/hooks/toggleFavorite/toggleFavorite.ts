@@ -12,7 +12,7 @@ type ToggleFavorites = {
 export const useToggleFavorite = (id: number): ToggleFavorites => {
   const [isLoading, setIsLoading] = useState(false);
   const dispatch = useAppDispatch();
-  const isFavorite = useSelector(getFavorites).includes(id);
+  const isFavorite = useSelector(getFavorites)?.includes(id);
 
   const handleToggleFavorite = async () => {
     setIsLoading(true);

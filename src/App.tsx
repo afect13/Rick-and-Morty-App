@@ -1,6 +1,7 @@
 import { Outlet } from 'react-router-dom';
 
 import { FeatureProvider, Header, Layout, Menu, ThemeProvider } from './components';
+import { withAuth } from './hoc';
 
 function App() {
   return (
@@ -17,4 +18,4 @@ function App() {
   );
 }
 
-export default App;
+export default withAuth(App);
