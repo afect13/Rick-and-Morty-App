@@ -1,10 +1,14 @@
+import { useEffect } from 'react';
+
 import { checkAuth } from '../../features';
 import { useAppDispatch } from '../../store';
 
 export const withAuth = (WrappedComponent: React.ComponentType) => {
   const WrappedWithAuth = () => {
     const dispatch = useAppDispatch();
-    dispatch(checkAuth());
+    useEffect(() => {
+      dispatch(checkAuth());
+    }, [dispatch]);
     return <WrappedComponent />;
   };
 

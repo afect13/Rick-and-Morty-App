@@ -21,7 +21,9 @@ export const Menu = () => {
   const handleSingout = () => {
     dispatch(signout());
   };
-
+  const handleClearError = () => {
+    dispatch(clearError());
+  };
   return (
     <div className="flex justify-between items-center h-10">
       <div className="flex gap-4 px-4 items-center ">
@@ -54,10 +56,10 @@ export const Menu = () => {
             </>
           ) : (
             <>
-              <Link onClick={() => dispatch(clearError())} to="/signin">
+              <Link onClick={() => handleClearError()} to="/signin">
                 <Button type={'button'} name={'Sign In'} withBorder={false} invertColor={true} />
               </Link>
-              <Link onClick={() => dispatch(clearError())} to="/signup">
+              <Link onClick={() => handleClearError()} to="/signup">
                 <Button type={'button'} name={'Sign Up'} withBorder={true} invertColor={true} />
               </Link>
             </>
