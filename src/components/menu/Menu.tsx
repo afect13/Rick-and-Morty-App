@@ -9,7 +9,7 @@ import { ReactComponent as Moon } from '../../assets/svg/moon.svg';
 import { ReactComponent as Sun } from '../../assets/svg/sun.svg';
 import { Button, SearchBar } from '../../components';
 import { ThemeContext } from '../../context';
-import { getIsAuthenticated, signout } from '../../features';
+import { clearError, getIsAuthenticated, signout } from '../../features';
 import { useAppDispatch } from '../../store';
 
 export const Menu = () => {
@@ -21,6 +21,7 @@ export const Menu = () => {
   const handleSingout = () => {
     dispatch(signout());
   };
+
   return (
     <div className="flex justify-between items-center h-10">
       <div className="flex gap-4 px-4 items-center ">
@@ -53,10 +54,10 @@ export const Menu = () => {
             </>
           ) : (
             <>
-              <Link to="/signin">
+              <Link onClick={() => dispatch(clearError())} to="/signin">
                 <Button type={'button'} name={'Sign In'} withBorder={false} invertColor={true} />
               </Link>
-              <Link to="/signup">
+              <Link onClick={() => dispatch(clearError())} to="/signup">
                 <Button type={'button'} name={'Sign Up'} withBorder={true} invertColor={true} />
               </Link>
             </>
