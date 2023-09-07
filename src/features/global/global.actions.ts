@@ -28,3 +28,8 @@ export const setInputConsoleArguments = createAction(
     };
   }
 );
+export const setSearch = createAction('global/search', (search: string) => {
+  return {
+    payload: search,
+  };
+});

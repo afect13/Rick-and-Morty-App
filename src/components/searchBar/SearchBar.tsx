@@ -1,13 +1,16 @@
 import { ChangeEvent, FormEvent, useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
 import { ReactComponent as Search } from '../../assets/svg/search.svg';
 import { Button, Suggestions } from '../../components';
-import { useSearchCharacterQuery } from '../../features';
+import { getSearch, setSearch, useSearchCharacterQuery } from '../../features';
 import { useDebounce } from '../../hooks';
+import { useAppDispatch } from '../../store';
 
 export const SearchBar = () => {
-  const [search, setSearch] = useState('');
+  const dispatch = useAppDispatch();
+  const search = useSelector(getSearch);
   const [dropDown, setDropDown] = useState(false);
   const [isFocused, setIsFocused] = useState(false);
   const navigate = useNavigate();
@@ -21,7 +24,7 @@ export const SearchBar = () => {
     skip: debouncedValue.length < 2,
   });
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
-    setSearch(event.target.value);
+    dispatch(setSearch(event.target.value));
   };
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();

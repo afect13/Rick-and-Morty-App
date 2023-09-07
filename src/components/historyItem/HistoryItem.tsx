@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
 import { Button, LoadingIndicator } from '../../components';
-import { removeFromHistory } from '../../features';
+import { removeFromHistory, setSearch } from '../../features';
 import { useAppDispatch } from '../../store';
 
 type Props = {
@@ -20,6 +20,9 @@ export const HistoryItem = ({ link }: Props) => {
     <li className="flex justify-between mx-auto  bg-zinc-200 rounded-lg p-2.5 w-[500px] mb-8">
       <div className="flex items-center">
         <Link
+          onClick={() => {
+            dispatch(setSearch(link));
+          }}
           to={`/search?q=${link}`}
           className="my-2 text-center text-2xl font-bold underline tracking-tight text-blue-600"
         >
