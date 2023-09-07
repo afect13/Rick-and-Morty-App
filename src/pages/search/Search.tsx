@@ -4,7 +4,7 @@ import { CharacterCard, Loading, NoResultsMessage, PageContent } from '../../com
 import { useSearchCharacterQuery } from '../../features';
 import { useAddToHistory } from '../../hooks';
 
-export const Search = () => {
+const Search = () => {
   const [searchParams] = useSearchParams();
   const searchResult = String(searchParams.get('q'));
   const { data: character, isError, isLoading, isSuccess } = useSearchCharacterQuery(searchResult);
@@ -17,3 +17,4 @@ export const Search = () => {
     </PageContent>
   );
 };
+export default Search;
