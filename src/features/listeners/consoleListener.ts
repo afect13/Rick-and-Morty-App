@@ -24,8 +24,10 @@ const startAppListening = consoleListenerMiddleware.startListening as AppStartLi
 
 startAppListening({
   actionCreator: setInputConsoleArguments,
-  effect: async (action) => {
+  effect: async (action, listenerApi) => {
     const { command, params } = action.payload;
+    const dispatch = listenerApi.dispatch;
+    const { isAuthenticated } = listenerApi.getState().auth;
     switch (command) {
       case '/start':
         showStartMessage();
@@ -34,25 +36,25 @@ startAppListening({
         showHelpsMessage();
         break;
       case '/show':
-        showCharacters();
+        showCharacters(dispatch);
         break;
       case '/search':
-        showSearchResult(params);
+        showSearchResult(params, dispatch);
         break;
       case '/character':
-        showCharacter(params);
+        showCharacter(params, dispatch);
         break;
       case '/signin':
-        signInConsole(params);
+        signInConsole(params, dispatch);
         break;
       case '/signup':
-        signUpConsole(params);
+        signUpConsole(params, dispatch);
         break;
       case '/add':
-        addToFavoritesFromConsole(params);
+        addToFavoritesFromConsole(params, dispatch, isAuthenticated);
         break;
       case '/remove':
-        removeFavoritesFromConsole(params);
+        removeFavoritesFromConsole(params, dispatch, isAuthenticated);
         break;
       default:
         showNotFound();

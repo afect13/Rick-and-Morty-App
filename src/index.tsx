@@ -8,7 +8,7 @@ import './index.css';
 import router from './router';
 import { store } from './store';
 
-window.command = command;
+window.command = command(store.dispatch);
 window.command('/start');
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
