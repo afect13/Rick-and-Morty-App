@@ -1,9 +1,10 @@
 import { Outlet } from 'react-router-dom';
 
 import { FeatureProvider, Header, Layout, Menu, ThemeProvider } from './components';
-import { withAuth } from './hoc';
+import { useCheckAuth } from './hooks';
 
 function App() {
+  useCheckAuth();
   return (
     <ThemeProvider>
       <FeatureProvider>
@@ -18,4 +19,4 @@ function App() {
   );
 }
 
-export default withAuth(App);
+export default App;
