@@ -1,14 +1,18 @@
+import { useDispatch } from 'react-redux';
 import { useSearchParams } from 'react-router-dom';
 
 import { CharacterCard, Loading, NoResultsMessage, PageContent } from '../../components';
-import { useSearchCharacterQuery } from '../../features';
+import { setSearch, useSearchCharacterQuery } from '../../features';
 import { useAddToHistory } from '../../hooks';
 
 const Search = () => {
+  const dispatch = useDispatch();
   const [searchParams] = useSearchParams();
+
   const searchResult = String(searchParams.get('q'));
   const { data: character, isError, isLoading, isSuccess } = useSearchCharacterQuery(searchResult);
   useAddToHistory(searchResult);
+  dispatch(setSearch(searchResult));
   return (
     <PageContent title={'Search Result'}>
       {isLoading && <Loading />}
