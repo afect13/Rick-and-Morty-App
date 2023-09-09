@@ -2,7 +2,7 @@ import { ChangeEvent, FormEvent } from 'react';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
-import { ReactComponent as Search } from '../../assets/svg/search.svg';
+import { ReactComponent as SearchSvg } from '../../assets/svg/search.svg';
 import { Button, Suggestions } from '../../components';
 import { getSearch, setSearch, setSuggestions, useSearchCharacterQuery } from '../../features';
 import { useDebounce } from '../../hooks';
@@ -48,7 +48,7 @@ export const SearchBar = () => {
       </label>
       <div className="relative">
         <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-          <Search />
+          <SearchSvg />
         </div>
         <input
           value={search}

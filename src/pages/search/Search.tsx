@@ -1,18 +1,16 @@
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { useSearchParams } from 'react-router-dom';
 
 import { CharacterCard, Loading, NoResultsMessage, PageContent } from '../../components';
-import { getFavoritesIsLoad, setSearch, useSearchCharacterQuery } from '../../features';
+import { getFavoritesIsLoad, useSearchCharacterQuery } from '../../features';
 import { useAddToHistory } from '../../hooks';
 
 const Search = () => {
-  const dispatch = useDispatch();
   const [searchParams] = useSearchParams();
   const favoritesIsLoad = useSelector(getFavoritesIsLoad);
   const searchResult = String(searchParams.get('q'));
   const { data: character, isError, isLoading, isSuccess } = useSearchCharacterQuery(searchResult);
   useAddToHistory(searchResult);
-  dispatch(setSearch(searchResult));
   return (
     <PageContent title={'Search Result'}>
       {isLoading && <Loading />}
