@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 
 import { Button, LoadingIndicator } from '../../components';
 import { FeatureContext } from '../../context';
-import { getIsAuthenticated } from '../../features';
+import { getFavoritesIsLoad, getIsAuthenticated } from '../../features';
 import { useToggleFavorite } from '../../hooks/';
 
 type Props = {
@@ -21,6 +21,7 @@ type Props = {
 export const CharacterProfile = ({ image, name, status, species, location, gender, id }: Props) => {
   const { isLoading, isFavorite, handleToggleFavorite } = useToggleFavorite(id);
   const isAuth = useSelector(getIsAuthenticated);
+  const favoritesIsLoad = useSelector(getFavoritesIsLoad);
   const navigate = useNavigate();
   const { isTelegramShareEnabled } = useContext(FeatureContext);
   const handleShareToTelegram = () => {
@@ -53,28 +54,30 @@ export const CharacterProfile = ({ image, name, status, species, location, gende
           <p className="text-left text-sm  text-gray-500">Gender:</p>
           <p className=" text-left text-lg  text-gray-700">{gender}</p>
         </div>
-        <div className="flex flex-start gap-1 w-full my-1 mx-2">
-          <Button
-            onClick={!isAuth ? () => navigate('/signin') : handleToggleFavorite}
-            type={'button'}
-            withBorder={false}
-            widthParms={'w-[215px]'}
-            bgColor={isFavorite ? 'bg-red-700' : 'bg-green-700'}
-            name={isFavorite ? 'Remove From Favorites' : 'Add To Favorites'}
-          >
-            {isLoading && <LoadingIndicator />}
-          </Button>
-          {isTelegramShareEnabled && (
+        {favoritesIsLoad && (
+          <div className="flex flex-start gap-1 w-full my-1 mx-2">
             <Button
-              onClick={handleShareToTelegram}
+              onClick={!isAuth ? () => navigate('/signin') : handleToggleFavorite}
               type={'button'}
               withBorder={false}
-              widthParms={'w-[160px]'}
-              bgColor={'bg-blue-400'}
-              name={'Share Telegram'}
-            ></Button>
-          )}
-        </div>
+              widthParms={'w-[215px]'}
+              bgColor={isFavorite ? 'bg-red-700' : 'bg-green-700'}
+              name={isFavorite ? 'Remove From Favorites' : 'Add To Favorites'}
+            >
+              {isLoading && <LoadingIndicator />}
+            </Button>
+            {isTelegramShareEnabled && (
+              <Button
+                onClick={handleShareToTelegram}
+                type={'button'}
+                withBorder={false}
+                widthParms={'w-[160px]'}
+                bgColor={'bg-blue-400'}
+                name={'Share Telegram'}
+              ></Button>
+            )}
+          </div>
+        )}
       </div>
     </div>
   );

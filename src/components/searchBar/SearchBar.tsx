@@ -32,6 +32,15 @@ export const SearchBar = () => {
       navigate(`/search?q=${formattedSearch}`);
     }
   };
+  const handleToggleSuggestions = (isShow: boolean) => {
+    if (isShow) {
+      dispatch(setSuggestions(true));
+    } else {
+      setTimeout(() => {
+        dispatch(setSuggestions(false));
+      }, 300);
+    }
+  };
   return (
     <form onSubmit={handleSubmit} className="w-full">
       <label htmlFor="search" className="mb-2 text-sm font-medium text-zinc-900 sr-only">
@@ -44,8 +53,9 @@ export const SearchBar = () => {
         <input
           value={search}
           onChange={handleChange}
-          onFocus={() => dispatch(setSuggestions(true))}
-          onClick={() => dispatch(setSuggestions(true))}
+          onFocus={() => handleToggleSuggestions(true)}
+          onClick={() => handleToggleSuggestions(true)}
+          onBlur={() => handleToggleSuggestions(false)}
           type="search"
           id="search"
           className="block w-full p-2 pl-10 text-sm text-zinc-900 border border-zinc-300 focus:outline-none focus:ring focus:ring-zinc-400  bg-zinc-50"
