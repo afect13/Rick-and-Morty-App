@@ -18,3 +18,4 @@ export * from './alerts/Alerts';
 export * from './featureProvider/FeatureProvider';
 export * from './noResultsMessage/NoResultsMessage';
 export * from './authRedirect/AuthRedirect';
+export * from './fallbackLayout/FallbackLayout';

@@ -4,16 +4,22 @@ import { arrayRemove, arrayUnion, doc, getDoc, updateDoc } from 'firebase/firest
 import { database } from '../../firebase';
 import { AppDispatch, RootState } from '../../store';
 
-export const updateHistoryState = createAsyncThunk<string[], string>('history/update', async (email) => {
-  if (email) {
-    const docRef = doc(database, email, 'data');
-    const docSnap = await getDoc(docRef);
-    if (docSnap.exists()) {
-      const { history } = docSnap.data();
-      return history;
+export const updateHistoryState = createAsyncThunk<string[], string, { dispatch: AppDispatch }>(
+  'history/update',
+  async (email, { dispatch }) => {
+    if (email) {
+      const docRef = doc(database, email, 'data');
+      const docSnap = await getDoc(docRef);
+      if (docSnap.exists()) {
+        const { history } = docSnap.data();
+        dispatch(historyLoaded());
+        return history;
+      }
+    } else {
+      dispatch(historyLoaded());
     }
   }
-});
+);
 
 export const addToHistory = createAsyncThunk<void, string, { state: RootState; dispatch: AppDispatch }>(
   'history/add',
@@ -60,5 +66,11 @@ export const removeAllFromHistory = createAsyncThunk<void, void, { state: RootSt
 export const resetHisoryStore = createAction('history/resetStore', () => {
   return {
     payload: [],
+  };
+});
+
+export const historyLoaded = createAction('favorites/historyLoaded', () => {
+  return {
+    payload: true,
   };
 });

@@ -2,13 +2,13 @@ import { useState } from 'react';
 import { useSelector } from 'react-redux';
 
 import { Button, HistoryItem, LoadingIndicator, NoResultsMessage, PageContent } from '../../components';
-import { getHistory, removeAllFromHistory } from '../../features';
+import { getFavoritesIsLoad, getHistory, removeAllFromHistory } from '../../features';
 import { useAppDispatch } from '../../store';
 
 const History = () => {
   const dispatch = useAppDispatch();
   const history = useSelector(getHistory);
-
+  const historyIsLoad = useSelector(getFavoritesIsLoad);
   const [isLoading, setIsLoading] = useState(false);
   const historyNotEmpty = history.length > 0;
   const handleRemoveAll = async () => {
@@ -39,7 +39,7 @@ const History = () => {
           </div>
         </>
       ) : (
-        <NoResultsMessage message={'History Not Found'} />
+        historyIsLoad && <NoResultsMessage message={'History Not Found'} />
       )}
     </PageContent>
   );

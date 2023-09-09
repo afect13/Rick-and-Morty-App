@@ -4,16 +4,22 @@ import { arrayRemove, arrayUnion, doc, getDoc, updateDoc } from 'firebase/firest
 import { database } from '../../firebase';
 import { AppDispatch, RootState } from '../../store';
 
-export const updateFavoritesState = createAsyncThunk<number[], string>('favorites/update', async (email) => {
-  if (email) {
-    const docRef = doc(database, email, 'data');
-    const docSnap = await getDoc(docRef);
-    if (docSnap.exists()) {
-      const { favorites } = docSnap.data();
-      return favorites;
+export const updateFavoritesState = createAsyncThunk<number[], string, { dispatch: AppDispatch }>(
+  'favorites/update',
+  async (email, { dispatch }) => {
+    if (email) {
+      const docRef = doc(database, email, 'data');
+      const docSnap = await getDoc(docRef);
+      if (docSnap.exists()) {
+        const { favorites } = docSnap.data();
+        dispatch(favoritesLoaded());
+        return favorites;
+      }
+    } else {
+      dispatch(favoritesLoaded());
     }
   }
-});
+);
 
 export const addToFavorites = createAsyncThunk<number, number, { state: RootState; dispatch: AppDispatch }>(
   'favorites/add',
@@ -75,5 +81,11 @@ export const toggleFavorites = createAsyncThunk<void, number, { state: RootState
 export const resetFavoritesStore = createAction('favorites/resetStore', () => {
   return {
     payload: [],
+  };
+});
+
+export const favoritesLoaded = createAction('favorites/favoritesLoaded', () => {
+  return {
+    payload: true,
   };
 });

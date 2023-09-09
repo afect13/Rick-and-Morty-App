@@ -2,13 +2,19 @@ import { useState } from 'react';
 import { useSelector } from 'react-redux';
 
 import { Button, FavoritesItem, Loading, LoadingIndicator, NoResultsMessage, PageContent } from '../../components';
-import { getFavorites, removeAllFromFavorites, useGetFavoritesCharactersQuery } from '../../features';
+import {
+  getFavorites,
+  getFavoritesIsLoad,
+  removeAllFromFavorites,
+  useGetFavoritesCharactersQuery,
+} from '../../features';
 import { useAppDispatch } from '../../store';
 
 const Favorites = () => {
   const [isLoading, setIsLoading] = useState(false);
   const dispatch = useAppDispatch();
   const favorites = useSelector(getFavorites);
+  const favoritesIsLoad = useSelector(getFavoritesIsLoad);
   const favoritesNotEmpty = favorites.length > 0;
   const {
     data: characters,
@@ -50,7 +56,7 @@ const Favorites = () => {
           favoritesList
         )
       ) : (
-        <NoResultsMessage message={'Favorites Not Found'} />
+        favoritesIsLoad && <NoResultsMessage message={'Favorites Not Found'} />
       )}
     </PageContent>
   );

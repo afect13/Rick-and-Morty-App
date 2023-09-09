@@ -9,12 +9,13 @@ import { ReactComponent as Moon } from '../../assets/svg/moon.svg';
 import { ReactComponent as Sun } from '../../assets/svg/sun.svg';
 import { Button, SearchBar } from '../../components';
 import { ThemeContext } from '../../context';
-import { clearError, getIsAuthenticated, signout } from '../../features';
+import { clearError, getAuthCheckIsPassed, getIsAuthenticated, signout } from '../../features';
 import { useAppDispatch } from '../../store';
 
 export const Menu = () => {
   const dispatch = useAppDispatch();
   const isAuth = useSelector(getIsAuthenticated);
+  const authChecked = useSelector(getAuthCheckIsPassed);
   const { isDark, setIsDark } = useContext(ThemeContext);
   const iconClass = 'fill-zinc-200 hover:fill-zinc-300';
   const theamIcon = isDark ? <Sun className={iconClass} /> : <Moon className={iconClass} />;
@@ -40,31 +41,33 @@ export const Menu = () => {
           ['border-zinc-900/20']: !isDark,
         })}
       >
-        <div className="flex gap-4 px-4 items-center ">
-          <Button onClick={() => setIsDark(!isDark)} type={'button'} withBorder={false} invertColor={true}>
-            {theamIcon}
-          </Button>
-          {isAuth ? (
-            <>
-              <Link to="/favorites">
-                <Button type={'button'} name={'Favorites'} withBorder={false} invertColor={true} />
-              </Link>
-              <Link to="/history">
-                <Button type={'button'} name={'History'} withBorder={false} invertColor={true} />
-              </Link>
-              <Button onClick={handleSingout} type={'button'} name={'Exit'} withBorder={true} invertColor={true} />
-            </>
-          ) : (
-            <>
-              <Link onClick={() => handleClearError()} to="/signin">
-                <Button type={'button'} name={'Sign In'} withBorder={false} invertColor={true} />
-              </Link>
-              <Link onClick={() => handleClearError()} to="/signup">
-                <Button type={'button'} name={'Sign Up'} withBorder={true} invertColor={true} />
-              </Link>
-            </>
-          )}
-        </div>
+        {authChecked && (
+          <div className="flex gap-4 px-4 items-center ">
+            <Button onClick={() => setIsDark(!isDark)} type={'button'} withBorder={false} invertColor={true}>
+              {theamIcon}
+            </Button>
+            {isAuth ? (
+              <>
+                <Link to="/favorites">
+                  <Button type={'button'} name={'Favorites'} withBorder={false} invertColor={true} />
+                </Link>
+                <Link to="/history">
+                  <Button type={'button'} name={'History'} withBorder={false} invertColor={true} />
+                </Link>
+                <Button onClick={handleSingout} type={'button'} name={'Exit'} withBorder={true} invertColor={true} />
+              </>
+            ) : (
+              <>
+                <Link onClick={() => handleClearError()} to="/signin">
+                  <Button type={'button'} name={'Sign In'} withBorder={false} invertColor={true} />
+                </Link>
+                <Link onClick={() => handleClearError()} to="/signup">
+                  <Button type={'button'} name={'Sign Up'} withBorder={true} invertColor={true} />
+                </Link>
+              </>
+            )}
+          </div>
+        )}
       </div>
     </div>
   );

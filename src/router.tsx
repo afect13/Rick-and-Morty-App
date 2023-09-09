@@ -3,7 +3,7 @@ import { ErrorBoundary } from 'react-error-boundary';
 import { createBrowserRouter } from 'react-router-dom';
 
 import App from './App';
-import { AuthRedirect, ErrorFallback, Loading } from './components';
+import { AuthRedirect, ErrorFallback, FallbackLayout } from './components';
 
 const Main = lazy(() => import('./pages/main/Main'));
 const Search = lazy(() => import('./pages/search/Search'));
@@ -17,7 +17,7 @@ const router = createBrowserRouter([
   {
     path: '',
     element: (
-      <Suspense fallback={<Loading />}>
+      <Suspense fallback={<FallbackLayout />}>
         <App />
       </Suspense>
     ),

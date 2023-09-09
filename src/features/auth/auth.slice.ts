@@ -1,18 +1,20 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-import { clearError, setAuthParams, signin, signout, signup } from './auth.actions';
+import { clearError, setAuthParams, setCheckPassed, signin, signout, signup } from './auth.actions';
 
 type AuthState = {
   isAuthenticated: boolean;
   email: string | null;
   isLoading: boolean;
   error: string | undefined;
+  checkIsPassed: boolean;
 };
 const initialState: AuthState = {
   email: null,
   isAuthenticated: false,
   isLoading: false,
   error: undefined,
+  checkIsPassed: false,
 };
 
 export const authSlice = createSlice({
@@ -66,6 +68,9 @@ export const authSlice = createSlice({
       .addCase(setAuthParams, (state, action) => {
         state.isAuthenticated = action.payload.authIs;
         state.email = action.payload.email;
+      })
+      .addCase(setCheckPassed, (state, action) => {
+        state.checkIsPassed = action.payload;
       });
   },
 });

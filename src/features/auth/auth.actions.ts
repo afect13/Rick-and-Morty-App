@@ -2,7 +2,14 @@ import { createAction, createAsyncThunk } from '@reduxjs/toolkit';
 import { createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword, signOut } from 'firebase/auth';
 import { doc, setDoc } from 'firebase/firestore/lite';
 
-import { resetFavoritesStore, resetHisoryStore, updateFavoritesState, updateHistoryState } from '../../features';
+import {
+  favoritesLoaded,
+  historyLoaded,
+  resetFavoritesStore,
+  resetHisoryStore,
+  updateFavoritesState,
+  updateHistoryState,
+} from '../../features';
 import { auth, database } from '../../firebase';
 import { AppDispatch } from '../../store';
 
@@ -56,8 +63,13 @@ export const checkAuth = createAsyncThunk<void, void, { dispatch: AppDispatch }>
     onAuthStateChanged(auth, (user) => {
       if (user && user.email) {
         dispatch(setAuthParams(user.email));
+        dispatch(setCheckPassed(true));
         dispatch(updateHistoryState(user.email));
         dispatch(updateFavoritesState(user.email));
+      } else {
+        dispatch(setCheckPassed(true));
+        dispatch(favoritesLoaded());
+        dispatch(historyLoaded());
       }
     });
   }
@@ -79,5 +91,11 @@ export const clearError = createAction('auth/clearError', () => {
 export const setAuthParams = createAction('auth/setAuth', (email: string) => {
   return {
     payload: { authIs: true, email },
+  };
+});
+
+export const setCheckPassed = createAction('auth/setPassed', (checkIs: boolean) => {
+  return {
+    payload: checkIs,
   };
 });

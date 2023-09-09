@@ -2,6 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 
 import {
   addToFavorites,
+  favoritesLoaded,
   removeAllFromFavorites,
   removeFromFavorites,
   resetFavoritesStore,
@@ -11,10 +12,12 @@ import {
 
 type FavoritesState = {
   favorites: number[];
+  isLoaded: boolean;
   error: string | undefined;
 };
 const initialState: FavoritesState = {
   favorites: [],
+  isLoaded: false,
   error: undefined,
 };
 
@@ -60,6 +63,9 @@ export const favoritesSlice = createSlice({
       .addCase(resetFavoritesStore, (state, action) => {
         state.favorites = action.payload;
         state.error = undefined;
+      })
+      .addCase(favoritesLoaded, (state, action) => {
+        state.isLoaded = action.payload;
       });
   },
 });

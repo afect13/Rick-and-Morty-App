@@ -2,6 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 
 import {
   addToHistory,
+  historyLoaded,
   removeAllFromHistory,
   removeFromHistory,
   resetHisoryStore,
@@ -11,10 +12,12 @@ import {
 type HistoryState = {
   history: string[];
   error: string | undefined;
+  isLoaded: boolean;
 };
 const initialState: HistoryState = {
   history: [],
   error: undefined,
+  isLoaded: false,
 };
 
 export const historySlice = createSlice({
@@ -53,6 +56,9 @@ export const historySlice = createSlice({
       .addCase(resetHisoryStore, (state, action) => {
         state.history = action.payload;
         state.error = undefined;
+      })
+      .addCase(historyLoaded, (state, action) => {
+        state.isLoaded = action.payload;
       });
   },
 });
