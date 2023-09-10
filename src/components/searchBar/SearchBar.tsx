@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 
 import { ReactComponent as SearchSvg } from '../../assets/svg/search.svg';
 import { Button, Suggestions } from '../../components';
-import { getSearch, setSearch, setSuggestions, useSearchCharacterQuery } from '../../features';
+import { addToHistory, getSearch, setSearch, setSuggestions, useSearchCharacterQuery } from '../../features';
 import { useDebounce } from '../../hooks';
 import { useAppDispatch } from '../../store';
 
@@ -30,6 +30,7 @@ export const SearchBar = () => {
     dispatch(setSuggestions(false));
     if (formattedSearch) {
       navigate(`/search?q=${formattedSearch}`);
+      dispatch(addToHistory(formattedSearch));
     }
   };
   const handleToggleSuggestions = (isShow: boolean) => {

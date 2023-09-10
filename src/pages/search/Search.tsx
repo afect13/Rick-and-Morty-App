@@ -3,14 +3,14 @@ import { useSearchParams } from 'react-router-dom';
 
 import { CharacterCard, Loading, NoResultsMessage, PageContent } from '../../components';
 import { getFavoritesIsLoad, useSearchCharacterQuery } from '../../features';
-import { useAddToHistory } from '../../hooks';
+import { usePersistSearchValue } from '../../hooks';
 
 const Search = () => {
   const [searchParams] = useSearchParams();
   const favoritesIsLoad = useSelector(getFavoritesIsLoad);
   const searchResult = String(searchParams.get('q'));
   const { data: character, isError, isLoading, isSuccess } = useSearchCharacterQuery(searchResult);
-  useAddToHistory(searchResult);
+  usePersistSearchValue(searchResult);
   return (
     <PageContent title={'Search Result'}>
       {isLoading && <Loading />}
